@@ -29,17 +29,4 @@ let cos x =
   let x = deg_to_rad (float_of_int x) in
   cos_helper 0.0 0.0 x
 
-let rec tan_helper i acc =
-  if i = 10 then acc
-  else
-    let sign = if i mod 2 = 0 then 1.0 else -1.0 in
-    let term =
-      sign
-      *. (acc ** ((2.0 *. float_of_int i) +. 1.0))
-      /. ((2.0 *. float_of_int i) +. 1.0)
-    in
-    tan_helper (i + 1) (acc +. term)
-
-let tan x =
-  let x = deg_to_rad (float_of_int x) in
-  tan_helper 0 x
+let tan x = sin x /. cos x
