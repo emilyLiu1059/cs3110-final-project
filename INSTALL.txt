@@ -1,0 +1,7 @@
+Installation Instructions: 
+1. Make sure to unzip the zip containing all the files needed. 
+2. Open a command line interface, and change to the directory containing 
+said files. For our project, type [cd final-project]
+3. In the terminal, type [dune build]
+4. Type [dune exec bin/main.exe]
+5. The user should see examples of all the functions that the user may access

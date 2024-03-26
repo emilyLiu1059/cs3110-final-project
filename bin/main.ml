@@ -45,3 +45,29 @@ let () =
   print_string (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
 
 let () = print_endline ""
+
+let () =
+  print_string "Calculating sin 45 degrees: ";
+  print_endline (string_of_float (Trig.sin 45))
+
+let () =
+  print_string "Calculating cos 30 degrees: ";
+  print_endline (string_of_float (Trig.cos 30))
+
+let () =
+  print_string "Calculating tan 180 degrees: ";
+  print_endline (string_of_float (Trig.tan 180))
+
+let () = print_endline ""
+
+let () =
+  print_string "Calculating the mean of [1.0; 5.0; 4.0; 10.0]: ";
+  print_endline (string_of_float (Probstats.mean [ 1.0; 5.0; 4.0; 10.0 ]))
+
+let () =
+  print_string "Calculating the median of [1.0; 5.0; 4.0; 10.0]: ";
+  print_endline (string_of_float (Probstats.median [ 1.0; 5.0; 4.0; 10.0 ]))
+
+let () =
+  print_string "Calculating the variance of [1.0; 5.0; 4.0; 10.0]: ";
+  print_endline (string_of_float (Probstats.variance [ 1.0; 5.0; 4.0; 10.0 ]))
