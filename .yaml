@@ -1,0 +1,36 @@
+---
+# Members of your group.
+group:  Serena Zhang (syz8), Ian Chen (yc823)
+
+  - name: Emily Liu
+    netid: eyl48
+  - name: Camille Yap
+    netid: cy474
+  - name: Anita Hong
+    netid: yh846
+  - name: Serena Zhang
+    netid: syz8
+  - name: Ian Chen
+    netid: yc823
+  
+# Your PM.
+pm:
+  - name: Lincoln Stranger
+    netid: las535
+# Set to false if you don't want your gallery entry to be public.
+publish: true
+# Pithy title
+title: "The OCaml Graph Calculator (OGC)"
+# OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
+git-repo: "https://github.coecis.cornell.edu/eyl48/final-project"
+# If you have no demo screencast, replace the url string with an empty string ""
+demo-video-url: ""
+# Write a short, attention-grabbing description of your project.
+desc: >
+  The current vision for the system we are building would be in the form of a 
+  graphing calculator that not only allows users to access and use various 
+  operations, but also provides a GUI interface that will provide a visual 
+  representation of graphs of certain functions (such as trigonometry functions 
+  and polynomials). The operations will be separated by different sectors in math;
+  we will have basic operations, trigonometry operations, probability/statistics 
+  operations, calculus operations, and matrix operations. 
