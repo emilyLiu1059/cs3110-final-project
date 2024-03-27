@@ -71,3 +71,45 @@ let () =
 let () =
   print_string "Calculating the variance of [1.0; 5.0; 4.0; 10.0]: ";
   print_endline (string_of_float (Probstats.variance [ 1.0; 5.0; 4.0; 10.0 ]))
+
+let () =
+  print_string "Pi.";
+  print_endline (string_of_float Poly.pi)
+
+let () =
+  print_string "E.";
+  print_endline (string_of_float Poly.e)
+
+let () =
+  print_string "Convert radian value [Poly.pi] to degree";
+  print_endline (Poly.pi |> Poly.rad_to_deg |> string_of_float)
+
+let () =
+  print_string "Convert degree value [360] to radian.";
+  print_endline (Poly.pi |> Poly.deg_to_rad |> string_of_float)
+
+let () =
+  print_string "Evaluate polynomial [2, 3, 4, 2] at a given value of 2.0.";
+  print_endline (Poly.eval 2. [ 2.; 3.; 4.; 2. ] |> string_of_float)
+
+let () =
+  print_string "Derive the polynomial [2, 3, 4, 2] once.";
+  print_endline (Poly.deri_once [ 2.; 3.; 4.; 2. ] |> Poly.string_of_float_list)
+
+let () =
+  print_string "Derive the polynomial [2, 3, 4, 2] 2 times.";
+  print_endline (Poly.deri 2 [ 2.; 3.; 4.; 2. ] |> Poly.string_of_float_list)
+
+let () =
+  print_string "Add two polynomials [2, 3, 4, 2] and [3, 0, 1]";
+  print_endline
+    (Poly.add [ 2.; 3.; 4.; 2. ] [ 3.; 0.; 1. ] |> Poly.string_of_float_list)
+
+let () =
+  print_string "Calculate the degree of polynomial [0, 2, 3, 4, 2]";
+  print_endline (Poly.degree [ 0.; 2.; 3.; 4.; 2. ] |> string_of_int)
+
+let () =
+  print_string "Multiply two polynomials [2, 3] and [4, 2]";
+  print_endline
+    (Poly.multiply [ 2.; 3. ] [ 4.; 2. ] |> Poly.string_of_float_list)
