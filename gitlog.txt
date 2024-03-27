@@ -1,0 +1,177 @@
+commit 3e86f7397a3b0d4f901318b0b99e8813d0f717c8
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed Mar 27 01:25:44 2024 -0400
+
+    Implement poly.ml and main.ml
+    - add function inte_once
+    - add a statement uses the function inte_once
+
+commit 87e1f54f36ec2c332e7d3980116134fcdf8ffe74
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed Mar 27 01:14:29 2024 -0400
+
+    Add a yaml file to the root directory
+
+commit 75b494da3880ff2e314ddeee7c92c245c483f63f
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed Mar 27 00:53:07 2024 -0400
+
+    - Implement module poly.ml, poly.mli
+    - Add statement which uses every function in poly.ml in main.ml
+
+commit f7a84c4ff325b26bcbe299fa16602bb09f137a81
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Tue Mar 26 18:51:01 2024 -0400
+
+    Wrote in the main.ml file and INSTALL.txt
+    
+    - Wrote examples for trig functions
+    - Wrote examples for probability/stats functions
+    - Wrote INSTALL.txt
+
+commit 72a52df849373417742769099cadb267ffc1badc
+Author: Serena <syz8@cornell.edu>
+Date:   Tue Mar 26 17:26:29 2024 -0400
+
+    added interface
+    - edited print statements for Basicops
+    - created new print statements for Matrix
+
+commit d4f1ffee3afda5e8ca1d5e91083a76da6865a6c5
+Author: Emily <eyl48@cornell.edu>
+Date:   Tue Mar 26 15:17:55 2024 -0400
+
+    Add basicop function to main
+    
+    - Tested add, subtract, multiply, and divide basicop functions in main
+
+commit 33a0b24247322ee6555f4892dce1f87358d10dd0
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Tue Mar 26 14:06:26 2024 -0400
+
+    Fixed Trig implementation
+    
+    - Edited tan function
+
+commit 22172965054c1adb36d569a2ebae3ba59b979096
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Tue Mar 26 11:09:20 2024 -0400
+
+    Fixed trig implementation
+    
+    - Had issues with not seeing the error messages on VSCode at first
+    - Fixed the remaining errors in the trig file
+    
+     Please enter the commit message for your changes. Lines starting
+
+commit d2dd163faa174849337eabee27bfdb26fb04a696
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Tue Mar 26 10:59:05 2024 -0400
+
+    Made some alterations in trig.ml file
+
+commit 21d042818e3ac4bc87d9a2f823fc8e9bb59d1529
+Author: Emily <eyl48@cornell.edu>
+Date:   Tue Mar 26 10:33:25 2024 -0400
+
+    Fixed trig documentation
+
+commit 8c64d8d8528934dd55bde9a2a8fc3d068ca33125
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon Mar 25 14:49:01 2024 -0400
+
+    Modified Trig.mli file
+
+commit 67b31159d186d05493792fef2afd285044e78763
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon Mar 25 14:29:46 2024 -0400
+
+    Trig Implementation
+    
+    - Added implementation for sin, cos, and tan functions
+    - Wrote documentation for sin, cos, and tan functions
+    - Created trig compilation units
+
+commit b35a6ac0c43fb5507f6cc42fdf76a3f0fa636a97
+Author: Emily <eyl48@cornell.edu>
+Date:   Sun Mar 24 16:30:49 2024 -0400
+
+    Add documentation for basicops
+    
+    - Wrote specs for add, subtract, multiply, and divide functions
+
+commit 8805992915d2a571d6f2778c95f9badc7a42cc95
+Author: Serena <syz8@cornell.edu>
+Date:   Sat Mar 23 01:57:21 2024 -0400
+
+    added documentation to matrix
+    - documented matrix.mli functions add, subtract, transpose, multiply, to_string
+    - enforced precondition of matching dimensions for add, subtract, multiply in matrix.ml
+
+commit cd00cc16149d95be81aa23c57b164560801d879e
+Author: Emily <eyl48@cornell.edu>
+Date:   Sat Mar 23 00:11:44 2024 -0400
+
+    Add .ocamlformat
+
+commit 82fb399a6c513ead88d7bfb5dc5b8b368438922e
+Author: Emily <eyl48@cornell.edu>
+Date:   Sat Mar 23 00:08:37 2024 -0400
+
+    Add basicops compilation unit
+    
+    - Implemented add, subtract, multiply, and divide module
+    - Created basicops.ml and basicops.mli
+
+commit 069dfbe829ec6b95dbd6b0cf00496b977296f1c4
+Merge: 89d5fcc 5ea7a72
+Author: Emily <eyl48@cornell.edu>
+Date:   Sat Mar 23 00:03:21 2024 -0400
+
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+
+commit 5ea7a72e8e7b2b14f3d8870156246a44e6dca120
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Fri Mar 22 21:17:48 2024 -0400
+
+    Add probstats module
+    
+    - Implemented probability and statistics operations for the calculator
+
+commit bf26b2eb6c6a126a51b4184dc7e64f959d3656ea
+Author: Serena <syz8@cornell.edu>
+Date:   Fri Mar 22 18:18:00 2024 -0400
+
+    added matrix.mli matrix.ml
+
+commit 89d5fcc35e3b4e584f6f303f73d7e8e811c2dfbd
+Merge: 9ccc4cb 6a109e9
+Author: Emily <eyl48@cornell.edu>
+Date:   Fri Mar 22 17:38:03 2024 -0400
+
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+    merge .ocamlformat
+
+commit 6a109e94f01847e0c3da670a5379c022f1148e74
+Author: Serena <syz8@cornell.edu>
+Date:   Fri Mar 22 17:33:37 2024 -0400
+
+    added .ocamlformat
+
+commit 9ccc4cbc460fc7873b54a2fd220a45aab7180290
+Author: Emily <eyl48@cornell.edu>
+Date:   Fri Mar 22 17:31:38 2024 -0400
+
+    Add .ocamlformat
+
+commit d8bb1ea15efcf4a5ce11d04048ef46074102ac49
+Author: eyl48 <eyl48@cornell.edu>
+Date:   Fri Mar 22 17:26:15 2024 -0400
+
+    Create README.md
+
+commit 7d4e6e4f3e37d57f7fb00d1c4f9f6b9bfc1ff7f6
+Author: Emily <eyl48@cornell.edu>
+Date:   Fri Mar 22 17:23:20 2024 -0400
+
+    Initial commit
