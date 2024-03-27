@@ -86,7 +86,7 @@ let () =
 
 let () =
   print_string "Convert degree value [360] to radian.";
-  print_endline (Poly.pi |> Poly.deg_to_rad |> string_of_float)
+  print_endline (360. |> Poly.deg_to_rad |> string_of_float)
 
 let () =
   print_string "Evaluate polynomial [2, 3, 4, 2] at a given value of 2.0.";
@@ -99,6 +99,12 @@ let () =
 let () =
   print_string "Derive the polynomial [2, 3, 4, 2] 2 times.";
   print_endline (Poly.deri 2 [ 2.; 3.; 4.; 2. ] |> Poly.string_of_float_list)
+
+let () =
+  print_string
+    "Integral the polynomial [2, 3, 4, 2] once, with constant = 2 added.";
+  print_endline
+    (Poly.inte_once 2. [ 2.; 3.; 4.; 2. ] |> Poly.string_of_float_list)
 
 let () =
   print_string "Add two polynomials [2, 3, 4, 2] and [3, 0, 1]";
