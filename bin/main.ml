@@ -13,9 +13,16 @@ let round_blue_box =
     ~background:(color_bg Draw.(opaque @@ find_color "lightblue"))
     ()
 
+let round_grey_box =
+  let open Style in
+  let border = mk_border ~radius:25 thick_grey_line in
+  create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
+
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
-  let layout = L.flat_of_w ~name:"Calculator" [ box ] in
+  let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
+  let layout = L.tower_of_w ~name:"Calculator" [ screen; box ] in
+  L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
   let board = Bogue.of_layout layout in
   Bogue.run board
 
