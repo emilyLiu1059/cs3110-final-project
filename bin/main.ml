@@ -17,19 +17,47 @@ let round_grey_box =
   let border = mk_border ~radius:25 thick_grey_line in
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
+let left_arrow =
+  L.resident ~x:400 ~y:360 ~w:30 ~h:25
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true
+    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "<")
+
+let right_arrow =
+  L.resident ~x:470 ~y:360 ~w:30 ~h:25
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true
+    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ">")
+
+let up_arrow =
+  L.resident ~x:435 ~y:335 ~w:30 ~h:25
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true
+    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "^")
+
+let down_arrow =
+  L.resident ~x:435 ~y:385 ~w:30 ~h:25
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true
+    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "v")
+
 let example4 () =
-  let left_arrow =
-    L.resident ~x:400 ~y:350 ~w:30 ~h:25 (W.button ~kind:Trigger "<")
-  in
-  let right_arrow =
-    L.resident ~x:460 ~y:350 ~w:30 ~h:25 (W.button ~kind:Trigger ">")
-  in
-  let up_arrow =
-    L.resident ~x:430 ~y:325 ~w:30 ~h:25 (W.button ~kind:Trigger "^")
-  in
-  let down_arrow =
-    L.resident ~x:430 ~y:375 ~w:30 ~h:25 (W.button ~kind:Trigger "v")
-  in
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
   let layout =
