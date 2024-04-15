@@ -18,44 +18,52 @@ let round_grey_box =
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
 let left_arrow =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "<"
+
+let right_arrow =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ">"
+
+let up_arrow =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "^"
+
+let down_arrow =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "v"
+
+let left_arrow_layout =
   L.resident ~x:400 ~y:360 ~w:30 ~h:25
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true
-    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
-       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "<")
+    ~draggable:false ~keyboard_focus:true left_arrow
 
-let right_arrow =
+let right_arrow_layout =
   L.resident ~x:470 ~y:360 ~w:30 ~h:25
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true
-    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
-       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ">")
+    ~draggable:false ~keyboard_focus:true right_arrow
 
-let up_arrow =
+let up_arrow_layout =
   L.resident ~x:435 ~y:335 ~w:30 ~h:25
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true
-    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
-       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "^")
+    ~draggable:false ~keyboard_focus:true up_arrow
 
-let down_arrow =
+let down_arrow_layout =
   L.resident ~x:435 ~y:385 ~w:30 ~h:25
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true
-    (W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
-       ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-       ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "v")
+    ~draggable:false ~keyboard_focus:true down_arrow
 
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
@@ -64,10 +72,10 @@ let example4 () =
     L.superpose ~name:"Calculator"
       [
         L.tower_of_w [ screen; box ];
-        left_arrow;
-        right_arrow;
-        up_arrow;
-        down_arrow;
+        left_arrow_layout;
+        right_arrow_layout;
+        up_arrow_layout;
+        down_arrow_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
