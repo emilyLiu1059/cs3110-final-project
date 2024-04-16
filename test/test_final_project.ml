@@ -126,6 +126,10 @@ let () =
 let tests =
   "test suite"
   >::: [
+         ("Add" >:: fun _ -> assert_equal (Basicops.add 1. 2.) 3.);
+         ("Subtract" >:: fun _ -> assert_equal (Basicops.subtract 5. 3.) 2.);
+         ("Multiply" >:: fun _ -> assert_equal (Basicops.multiply 3. 4.) 12.);
+         ("Divide" >:: fun _ -> assert_equal (Basicops.divide 8. 2.) 4.);
          ( "Matrix A" >:: fun _ ->
            assert_equal (Matrix.to_string matrix_a) "1. 2. \n3. 4. \n" );
          ( "Matrix B" >:: fun _ ->
