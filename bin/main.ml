@@ -67,6 +67,66 @@ let enter_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Enter"
 
+let one_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "1"
+
+let two_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "2"
+
+let three_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "3"
+
+let four_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "4"
+
+let five_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "5"
+
+let six_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "6"
+
+let seven_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "7"
+
+let eight_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "8"
+
+let nine_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "9"
+
+let zero_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "0"
+
+let dot_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "."
+
+let negative_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
+
 let left_arrow_layout =
   L.resident ~x:380 ~y:390 ~w:30 ~h:25
     ~background:
@@ -137,6 +197,90 @@ let enter_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true enter_button
 
+let one_button_layout =
+  L.resident ~x:155 ~y:605 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true one_button
+
+let two_button_layout =
+  L.resident ~x:225 ~y:605 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true two_button
+
+let three_button_layout =
+  L.resident ~x:295 ~y:605 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true three_button
+
+let four_button_layout =
+  L.resident ~x:155 ~y:680 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true four_button
+
+let five_button_layout =
+  L.resident ~x:225 ~y:680 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true five_button
+
+let six_button_layout =
+  L.resident ~x:295 ~y:680 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true six_button
+
+let seven_button_layout =
+  L.resident ~x:155 ~y:755 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true seven_button
+
+let eight_button_layout =
+  L.resident ~x:225 ~y:755 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true eight_button
+
+let nine_button_layout =
+  L.resident ~x:295 ~y:755 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true nine_button
+
+let zero_button_layout =
+  L.resident ~x:155 ~y:830 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true zero_button
+
+let dot_button_layout =
+  L.resident ~x:225 ~y:830 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true dot_button
+
+let negative_button_layout =
+  L.resident ~x:295 ~y:830 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true negative_button
+
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
@@ -154,6 +298,18 @@ let example4 () =
         multiply_button_layout;
         divide_button_layout;
         enter_button_layout;
+        one_button_layout;
+        two_button_layout;
+        three_button_layout;
+        four_button_layout;
+        five_button_layout;
+        six_button_layout;
+        seven_button_layout;
+        eight_button_layout;
+        nine_button_layout;
+        zero_button_layout;
+        dot_button_layout;
+        negative_button_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
