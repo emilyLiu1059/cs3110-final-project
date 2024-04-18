@@ -154,6 +154,15 @@ let tests =
            assert_equal
              (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
              "19. 22. \n43. 50. \n" );
+         ("sin45" >:: fun _ -> assert_equal (Trig.sin 45) 0.707106781186547462);
+         ("sin30" >:: fun _ -> assert_equal (Trig.sin 30) 0.499999999999999944);
+         ("sin60" >:: fun _ -> assert_equal (Trig.sin 60) 0.866025403784438486);
+         ("cos45" >:: fun _ -> assert_equal (Trig.cos 45) 0.707106781186547462);
+         ("cos30" >:: fun _ -> assert_equal (Trig.cos 30) 0.866025403784438597);
+         ("cos60" >:: fun _ -> assert_equal (Trig.cos 60) 0.500000000000000111);
+         ("tan45" >:: fun _ -> assert_equal (Trig.tan 45) 1.);
+         ("tan30" >:: fun _ -> assert_equal (Trig.tan 30) 0.577350269189625731);
+         ("tan60" >:: fun _ -> assert_equal (Trig.tan 60) 1.73205080756887653);
        ]
 
 let _ = run_test_tt_main tests
