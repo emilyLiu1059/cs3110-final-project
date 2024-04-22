@@ -17,6 +17,41 @@ let round_grey_box =
   let border = mk_border ~radius:25 thick_grey_line in
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
+let pi =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "π"
+
+let comma =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ","
+
+let left_s_bracket =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "["
+
+let right_s_bracket =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "]"
+
+let left_bracket =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "("
+
+let right_bracket =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ")"
+
+let x =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "x"
+
 let left_arrow =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
@@ -131,6 +166,55 @@ let stats_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Stats"
+
+let pi_layout =
+  L.resident ~x:30 ~y:610 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true pi
+
+let comma_layout =
+  L.resident ~x:80 ~y:610 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true comma
+
+let left_s_bracket_layout =
+  L.resident ~x:30 ~y:665 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true left_s_bracket
+
+let right_s_bracket_layout =
+  L.resident ~x:80 ~y:665 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true right_s_bracket
+
+let right_bracket_layout =
+  L.resident ~x:80 ~y:720 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true right_bracket
+
+let left_bracket_layout =
+  L.resident ~x:30 ~y:720 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true left_bracket
+
+let x_layout =
+  L.resident ~x:30 ~y:775 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true x
 
 let left_arrow_layout =
   L.resident ~x:380 ~y:390 ~w:30 ~h:25
@@ -323,6 +407,13 @@ let example4 () =
         dot_button_layout;
         negative_button_layout;
         stats_button_layout;
+        pi_layout;
+        comma_layout;
+        left_s_bracket_layout;
+        right_s_bracket_layout;
+        left_bracket_layout;
+        right_bracket_layout;
+        x_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
