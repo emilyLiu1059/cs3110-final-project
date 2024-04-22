@@ -30,6 +30,10 @@ let () =
   print_string (Matrix.to_string matrix_b)
 
 let () =
+  print_endline "Identity matrix 3: ";
+  print_string (Matrix.to_string (Matrix.identity_matrix 3))
+
+let () =
   print_endline "Adding matrix A and matrix B: ";
   print_string (Matrix.to_string (Matrix.add matrix_a matrix_b))
 
@@ -44,6 +48,78 @@ let () =
 let () =
   print_endline "Multiplying matrix A and matrix B: ";
   print_string (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
+
+let () =
+  print_endline "Multiplying 4 and matrix B: ";
+  print_string (Matrix.to_string (Matrix.scalar_multiply 4. matrix_b))
+
+let () =
+  print_endline "Determinant of matrix A: ";
+  print_float (Matrix.determinant matrix_a);
+  print_endline ""
+
+let () =
+  print_endline "Determinant of matrix B: ";
+  print_float (Matrix.determinant matrix_b);
+  print_endline ""
+
+let () =
+  print_endline "Determinant of identity matrix: ";
+  print_float (Matrix.determinant (Matrix.identity_matrix 2));
+  print_endline ""
+
+let () =
+  print_endline "Swap rows 0 and 1 of matrix A: ";
+  print_string (Matrix.to_string (Matrix.swap_rows matrix_a 0 1))
+
+let () =
+  print_endline "Swap rows 0 and 1 of matrix B: ";
+  print_string (Matrix.to_string (Matrix.swap_rows matrix_b 0 1))
+
+let () =
+  print_endline "Swap rows 1 and 2 of identity matrix 3: ";
+  print_string
+    (Matrix.to_string (Matrix.swap_rows (Matrix.identity_matrix 3) 2 1))
+
+let () =
+  print_endline "Swap columns 0 and 1 of matrix A: ";
+  print_string (Matrix.to_string (Matrix.swap_cols matrix_a 0 1))
+
+let () =
+  print_endline "Swap columns 0 and 1 of matrix B: ";
+  print_string (Matrix.to_string (Matrix.swap_cols matrix_b 0 1))
+
+let () =
+  print_endline "Swap columns 1 and 2 of identity matrix 3: ";
+  print_string
+    (Matrix.to_string (Matrix.swap_cols (Matrix.identity_matrix 3) 2 1))
+
+let () =
+  print_endline "Row reduce matrix A: ";
+  print_string (Matrix.to_string (Matrix.row_reduce matrix_a))
+
+let () =
+  print_endline "Row reduce matrix B: ";
+  print_string (Matrix.to_string (Matrix.row_reduce matrix_b))
+
+let () =
+  print_endline "Row reduce identity matrix 3: ";
+  print_string (Matrix.to_string (Matrix.row_reduce (Matrix.identity_matrix 3)))
+
+let () =
+  print_endline "Rank of matrix A: ";
+  print_int (Matrix.rank matrix_a);
+  print_endline ""
+
+let () =
+  print_endline "Rank of matrix B: ";
+  print_int (Matrix.rank matrix_b);
+  print_endline ""
+
+let () =
+  print_endline "Rank of identity matrix 3: ";
+  print_int (Matrix.rank (Matrix.identity_matrix 3));
+  print_endline ""
 
 let () = print_endline ""
 
@@ -134,6 +210,10 @@ let tests =
            assert_equal (Matrix.to_string matrix_a) "1. 2. \n3. 4. \n" );
          ( "Matrix B" >:: fun _ ->
            assert_equal (Matrix.to_string matrix_b) "5. 6. \n7. 8. \n" );
+         ( "Identity matrix 3" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.identity_matrix 3))
+             "1. 0. 0. \n0. 1. 0. \n0. 0. 1. \n" );
          ( "Adding matrix A and matrix B" >:: fun _ ->
            assert_equal
              (Matrix.to_string (Matrix.add matrix_a matrix_b))
@@ -154,6 +234,58 @@ let tests =
            assert_equal
              (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
              "19. 22. \n43. 50. \n" );
+         ( "Multiplying 4 and matrix B" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.scalar_multiply 4. matrix_b))
+             "20. 24. \n28. 32. \n" );
+         ( "Determinant of matrix A" >:: fun _ ->
+           assert_equal (Matrix.determinant matrix_a) (-2.) );
+         ( "Determinant of matrix B" >:: fun _ ->
+           assert_equal (Matrix.determinant matrix_a) (-2.) );
+         ( "Determinant of identity matrix" >:: fun _ ->
+           assert_equal (Matrix.determinant (Matrix.identity_matrix 2)) 1. );
+         ( "Swap rows 0 and 1 of matrix A" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.swap_rows matrix_a 0 1))
+             "3. 4. \n1. 2. \n" );
+         ( "Swap rows 0 and 1 of matrix B" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.swap_rows matrix_b 0 1))
+             "7. 8. \n5. 6. \n" );
+         ( "Swap rows 0 and 1 of identity matrix 3" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string
+                (Matrix.swap_rows (Matrix.identity_matrix 3) 2 1))
+             "1. 0. 0. \n0. 0. 1. \n0. 1. 0. \n" );
+         ( "Swap columns 0 and 1 of matrix A" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.swap_cols matrix_a 0 1))
+             "2. 1. \n4. 3. \n" );
+         ( "Swap columns 0 and 1 of matrix B" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.swap_cols matrix_b 0 1))
+             "6. 5. \n8. 7. \n" );
+         ( "Swap columns 0 and 1 of identity matrix 3" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string
+                (Matrix.swap_cols (Matrix.identity_matrix 3) 2 1))
+             "1. 0. 0. \n0. 0. 1. \n0. 1. 0. \n" );
+         ( "Row reduce matrix A" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.row_reduce matrix_a))
+             "1. 0. \n-0. 1. \n" );
+         ( "Row reduce matrix B" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.row_reduce matrix_b))
+             "1. 0. \n-0. 1. \n" );
+         ( "Row reduce identity matrix 3" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.row_reduce (Matrix.identity_matrix 3)))
+             "1. 0. 0. \n0. 1. 0. \n0. 0. 1. \n" );
+         ("Rank of matrix A" >:: fun _ -> assert_equal (Matrix.rank matrix_a) 2);
+         ("Rank of matrix B" >:: fun _ -> assert_equal (Matrix.rank matrix_b) 2);
+         ( "Rank of identity matrix 3" >:: fun _ ->
+           assert_equal (Matrix.rank (Matrix.identity_matrix 3)) 3 );
          ("sin45" >:: fun _ -> assert_equal (Trig.sin 45) 0.707106781186547462);
          ("sin30" >:: fun _ -> assert_equal (Trig.sin 30) 0.499999999999999944);
          ("sin60" >:: fun _ -> assert_equal (Trig.sin 60) 0.866025403784438486);
