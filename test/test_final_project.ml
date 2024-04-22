@@ -125,15 +125,111 @@ let () = print_endline ""
 
 let () =
   print_string "Calculating sin 45 degrees: ";
-  print_endline (string_of_float (Trig.sin 45))
+  print_endline (string_of_float (Trig.sin 45.))
+
+let () =
+  print_string "Calculating sin 35.5 degrees: ";
+  print_endline (string_of_float (Trig.sin 35.5))
+
+let () =
+  print_string "Calculating sin 180 degrees: ";
+  print_endline (string_of_float (Trig.sin 180.))
 
 let () =
   print_string "Calculating cos 30 degrees: ";
-  print_endline (string_of_float (Trig.cos 30))
+  print_endline (string_of_float (Trig.cos 30.))
+
+let () =
+  print_string "Calculating cos 29.4 degrees: ";
+  print_endline (string_of_float (Trig.cos 29.4))
+
+let () =
+  print_string "Calculating cos 90 degrees: ";
+  print_endline (string_of_float (Trig.cos 90.))
 
 let () =
   print_string "Calculating tan 180 degrees: ";
-  print_endline (string_of_float (Trig.tan 180))
+  print_endline (string_of_float (Trig.tan 180.))
+
+let () =
+  print_string "Calculating tan 7 degrees: ";
+  print_endline (string_of_float (Trig.tan 7.))
+
+let () =
+  print_string "Calculating tan 45 degrees: ";
+  print_endline (string_of_float (Trig.tan 45.))
+
+let () =
+  print_string "Calculating cosecant 45 degrees: ";
+  print_endline (string_of_float (Trig.csc 45.))
+
+let () =
+  print_string "Calculating cosecant 30 degrees: ";
+  print_endline (string_of_float (Trig.csc 30.))
+
+let () =
+  print_string "Calculating cosecant 60 degrees: ";
+  print_endline (string_of_float (Trig.csc 60.))
+
+let () =
+  print_string "Calculating secant 45 degrees: ";
+  print_endline (string_of_float (Trig.sec 45.))
+
+let () =
+  print_string "Calculating secant 30 degrees: ";
+  print_endline (string_of_float (Trig.sec 30.))
+
+let () =
+  print_string "Calculating secant 60 degrees: ";
+  print_endline (string_of_float (Trig.sec 60.))
+
+let () =
+  print_string "Calculating cotangent 45 degrees: ";
+  print_endline (string_of_float (Trig.cot 45.))
+
+let () =
+  print_string "Calculating cotangent 30 degrees: ";
+  print_endline (string_of_float (Trig.cot 30.))
+
+let () =
+  print_string "Calculating cotangent 60 degrees: ";
+  print_endline (string_of_float (Trig.cot 60.))
+
+let () =
+  print_string "Calculating arcsine 0.5: ";
+  print_endline (string_of_float (Trig.arcsin 0.5))
+
+let () =
+  print_string "Calculating arcsine 0.8: ";
+  print_endline (string_of_float (Trig.arcsin 0.8))
+
+let () =
+  print_string "Calculating arcsine 1: ";
+  print_endline (string_of_float (Trig.arcsin 1.))
+
+let () =
+  print_string "Calculating arccosine 0.5: ";
+  print_endline (string_of_float (Trig.arccos 0.5))
+
+let () =
+  print_string "Calculating arccosine 0.8: ";
+  print_endline (string_of_float (Trig.arccos 0.8))
+
+let () =
+  print_string "Calculating arccosine 1.: ";
+  print_endline (string_of_float (Trig.arccos 1.))
+
+let () =
+  print_string "Calculating arctangent 0.5: ";
+  print_endline (string_of_float (Trig.arctan 0.5))
+
+let () =
+  print_string "Calculating arctangent 0.8: ";
+  print_endline (string_of_float (Trig.arctan 0.8))
+
+let () =
+  print_string "Calculating arctangent 1.: ";
+  print_endline (string_of_float (Trig.arctan 1.))
 
 let () = print_endline ""
 
@@ -286,15 +382,41 @@ let tests =
          ("Rank of matrix B" >:: fun _ -> assert_equal (Matrix.rank matrix_b) 2);
          ( "Rank of identity matrix 3" >:: fun _ ->
            assert_equal (Matrix.rank (Matrix.identity_matrix 3)) 3 );
-         ("sin45" >:: fun _ -> assert_equal (Trig.sin 45) 0.707106781186547462);
-         ("sin30" >:: fun _ -> assert_equal (Trig.sin 30) 0.499999999999999944);
-         ("sin60" >:: fun _ -> assert_equal (Trig.sin 60) 0.866025403784438486);
-         ("cos45" >:: fun _ -> assert_equal (Trig.cos 45) 0.707106781186547462);
-         ("cos30" >:: fun _ -> assert_equal (Trig.cos 30) 0.866025403784438597);
-         ("cos60" >:: fun _ -> assert_equal (Trig.cos 60) 0.500000000000000111);
-         ("tan45" >:: fun _ -> assert_equal (Trig.tan 45) 1.);
-         ("tan30" >:: fun _ -> assert_equal (Trig.tan 30) 0.577350269189625731);
-         ("tan60" >:: fun _ -> assert_equal (Trig.tan 60) 1.73205080756887653);
+         ("sin45" >:: fun _ -> assert_equal (Trig.sin 45.) 0.707106781186547462);
+         ("sin30" >:: fun _ -> assert_equal (Trig.sin 30.) 0.499999999999999944);
+         ("sin60" >:: fun _ -> assert_equal (Trig.sin 60.) 0.866025403784438486);
+         ("cos45" >:: fun _ -> assert_equal (Trig.cos 45.) 0.707106781186547462);
+         ("cos30" >:: fun _ -> assert_equal (Trig.cos 30.) 0.866025403784438597);
+         ("cos60" >:: fun _ -> assert_equal (Trig.cos 60.) 0.500000000000000111);
+         ("tan45" >:: fun _ -> assert_equal (Trig.tan 45.) 1.);
+         ("tan30" >:: fun _ -> assert_equal (Trig.tan 30.) 0.577350269189625731);
+         ("tan60" >:: fun _ -> assert_equal (Trig.tan 60.) 1.73205080756887653);
+         ("csc45" >:: fun _ -> assert_equal (Trig.csc 45.) 1.41421356237309515);
+         ("csc30" >:: fun _ -> assert_equal (Trig.csc 30.) 2.00000000000000044);
+         ("csc60" >:: fun _ -> assert_equal (Trig.csc 60.) 1.15470053837925168);
+         ("sec45" >:: fun _ -> assert_equal (Trig.sec 45.) 1.41421356237309515);
+         ("sec30" >:: fun _ -> assert_equal (Trig.sec 30.) 1.15470053837925168);
+         ("sec60" >:: fun _ -> assert_equal (Trig.sec 60.) 1.99999999999999956);
+         ("cot45" >:: fun _ -> assert_equal (Trig.cot 45.) 1.);
+         ("cot30" >:: fun _ -> assert_equal (Trig.cot 30.) 1.73205080756887742);
+         ("cot60" >:: fun _ -> assert_equal (Trig.cot 60.) 0.577350269189626064);
+         ( "arcsin 0.5" >:: fun _ ->
+           assert_equal (Trig.arcsin 0.5) 0.523585195390005 );
+         ( "arcsin 0.8" >:: fun _ ->
+           assert_equal (Trig.arcsin 0.8) 0.923349414603174767 );
+         ( "arcsin 1." >:: fun _ ->
+           assert_equal (Trig.arcsin 1.) 1.31669146825396832 );
+         ( "arccos 0.5" >:: fun _ ->
+           assert_equal (Trig.arccos 0.5) 1.04721113140489153 );
+         ( "arccos 0.8" >:: fun _ ->
+           assert_equal (Trig.arccos 0.8) 0.647446912191721791 );
+         ("arccos 1." >:: fun _ -> assert_equal (Trig.arccos 1.) 0.);
+         ( "arctan 0.5" >:: fun _ ->
+           assert_equal (Trig.arctan 0.5) 0.463647609000796934 );
+         ( "arctan 0.8" >:: fun _ ->
+           assert_equal (Trig.arctan 0.8) 0.674739330996735442 );
+         ( "arctan 1." >:: fun _ ->
+           assert_equal (Trig.arctan 1.) 0.77290595166696 );
        ]
 
 let _ = run_test_tt_main tests

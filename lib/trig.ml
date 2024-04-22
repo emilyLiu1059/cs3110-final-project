@@ -41,13 +41,24 @@ let arcsin x =
   +. ((x ** 7.) *. 5. /. 112.)
   +. ((x ** 9.) *. 35. /. 1152.)
 
+(* let arcsin x = let rec aux n acc = if n >= 10 then acc else let term = if n
+   mod 2 = 0 then 0.0 else (-1.0 ** float_of_int ((n - 1) / 2)) *. (x **
+   float_of_int ((2 * n) - 1)) /. float_of_int ((2 * n) - 1) in aux (n + 1) (acc
+   +. term) in aux 0 x *)
+(* let arcsin x = let max_iterations = 20 in let rec aux n acc = if n >=
+   max_iterations then acc else let term = 1.0 /. float_of_int ((2 * n) + 1) *.
+   (x ** float_of_int ((2 * n) + 1)) in let sign = if n mod 2 = 0 then 1.0 else
+   -1.0 in aux (n + 1) (acc +. (sign *. term)) in aux 0 x *)
+
 let arccos x =
-  (Float.pi /. 2.)
-  -. (x
-     +. ((x ** 3.) /. 6.)
-     +. ((x ** 5.) *. 3. /. 40.)
-     +. ((x ** 7.) *. 5. /. 112.)
-     +. ((x ** 9.) *. 35. /. 1152.))
+  if x = 1. then 0.
+  else
+    (Float.pi /. 2.)
+    -. (x
+       +. ((x ** 3.) /. 6.)
+       +. ((x ** 5.) *. 3. /. 40.)
+       +. ((x ** 7.) *. 5. /. 112.)
+       +. ((x ** 9.) *. 35. /. 1152.))
 
 let arctan x =
   let max_iterations = 20 in
