@@ -127,6 +127,11 @@ let negative_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
 
+let stats_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Stats"
+
 let left_arrow_layout =
   L.resident ~x:380 ~y:390 ~w:30 ~h:25
     ~background:
@@ -281,6 +286,13 @@ let negative_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true negative_button
 
+let stats_button_layout =
+  L.resident ~x:295 ~y:530 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true stats_button
+
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
@@ -310,6 +322,7 @@ let example4 () =
         zero_button_layout;
         dot_button_layout;
         negative_button_layout;
+        stats_button_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
