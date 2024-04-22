@@ -118,17 +118,6 @@ let swap_cols matrix col1 col2 =
   done;
   result
 
-(* let row_reduce matrix = let m = Array.length matrix in let n = Array.length
-   matrix.(0) in let rec reduce_helper matrix lead = if n <= lead then matrix
-   else let pivot_row = ref 0 in let pivot_found = ref false in for r = 0 to m -
-   1 do if (not !pivot_found) && matrix.(r).(lead) <> 0.0 then ( pivot_row := r;
-   pivot_found := true) done; if not !pivot_found then reduce_helper matrix
-   (lead + 1) else let pivot_val = matrix.(!pivot_row).(lead) in let
-   scaled_pivot_row = Array.map (fun x -> x /. pivot_val) matrix.(!pivot_row) in
-   let new_matrix = Array.mapi (fun i row -> if i = !pivot_row then row else
-   Array.mapi (fun j v -> v -. (row.(lead) *. scaled_pivot_row.(j))) row) matrix
-   in reduce_helper new_matrix (lead + 1) in reduce_helper matrix 0 *)
-
 let row_reduce matrix =
   let m = Array.length matrix in
   let n = Array.length matrix.(0) in
