@@ -167,6 +167,36 @@ let stats_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Stats"
 
+let e_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "e"
+
+let rad_to_deg_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "r to d"
+
+let deg_to_rad_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "d to r"
+
+let deri_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "deri"
+
+let inte_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "inte"
+
+let degree_button =
+  W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
+    ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "degree"
+
 let pi_layout =
   L.resident ~x:30 ~y:610 ~w:40 ~h:40
     ~background:
@@ -377,6 +407,48 @@ let stats_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true stats_button
 
+let e_button_layout =
+  L.resident ~x:80 ~y:775 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true e_button
+
+let deg_to_rad_button_layout =
+  L.resident ~x:30 ~y:830 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true deg_to_rad_button
+
+let rad_to_deg_button_layout =
+  L.resident ~x:80 ~y:830 ~w:40 ~h:40
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true rad_to_deg_button
+
+let deri_button_layout =
+  L.resident ~x:155 ~y:530 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true deri_button
+
+let inte_button_layout =
+  L.resident ~x:225 ~y:530 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true inte_button
+
+let degree_button_layout =
+  L.resident ~x:85 ~y:530 ~w:55 ~h:50
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true degree_button
+
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
@@ -414,6 +486,12 @@ let example4 () =
         left_bracket_layout;
         right_bracket_layout;
         x_layout;
+        e_button_layout;
+        rad_to_deg_button_layout;
+        deg_to_rad_button_layout;
+        deri_button_layout;
+        inte_button_layout;
+        degree_button_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
