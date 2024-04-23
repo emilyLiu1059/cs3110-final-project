@@ -63,13 +63,46 @@ let multiply a b =
   done;
   result
 
-let scalar_multiply scalar matrix =
+let scalar_add matrix scalar =
   let rows = Array.length matrix in
   let cols = Array.length matrix.(0) in
   let result = Array.make_matrix rows cols 0.0 in
   for i = 0 to rows - 1 do
     for j = 0 to cols - 1 do
-      result.(i).(j) <- scalar *. matrix.(i).(j)
+      result.(i).(j) <- matrix.(i).(j) +. scalar
+    done
+  done;
+  result
+
+let scalar_subtract matrix scalar =
+  let rows = Array.length matrix in
+  let cols = Array.length matrix.(0) in
+  let result = Array.make_matrix rows cols 0.0 in
+  for i = 0 to rows - 1 do
+    for j = 0 to cols - 1 do
+      result.(i).(j) <- matrix.(i).(j) -. scalar
+    done
+  done;
+  result
+
+let scalar_multiply matrix scalar =
+  let rows = Array.length matrix in
+  let cols = Array.length matrix.(0) in
+  let result = Array.make_matrix rows cols 0.0 in
+  for i = 0 to rows - 1 do
+    for j = 0 to cols - 1 do
+      result.(i).(j) <- matrix.(i).(j) *. scalar
+    done
+  done;
+  result
+
+let scalar_divide matrix scalar =
+  let rows = Array.length matrix in
+  let cols = Array.length matrix.(0) in
+  let result = Array.make_matrix rows cols 0.0 in
+  for i = 0 to rows - 1 do
+    for j = 0 to cols - 1 do
+      result.(i).(j) <- matrix.(i).(j) /. scalar
     done
   done;
   result

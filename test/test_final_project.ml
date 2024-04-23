@@ -50,8 +50,20 @@ let () =
   print_string (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
 
 let () =
-  print_endline "Multiplying 4 and matrix B: ";
-  print_string (Matrix.to_string (Matrix.scalar_multiply 4. matrix_b))
+  print_endline "Adding matrix A and 35: ";
+  print_string (Matrix.to_string (Matrix.scalar_add matrix_a 35.))
+
+let () =
+  print_endline "Subtracting matrix B by 10: ";
+  print_string (Matrix.to_string (Matrix.scalar_subtract matrix_b 10.))
+
+let () =
+  print_endline "Multiplying matrix B and 4: ";
+  print_string (Matrix.to_string (Matrix.scalar_multiply matrix_b 4.))
+
+let () =
+  print_endline "Dividing matrix A by 6: ";
+  print_string (Matrix.to_string (Matrix.scalar_divide matrix_a 6.))
 
 let () =
   print_endline "Determinant of matrix A: ";
@@ -330,10 +342,22 @@ let tests =
            assert_equal
              (Matrix.to_string (Matrix.multiply matrix_a matrix_b))
              "19. 22. \n43. 50. \n" );
-         ( "Multiplying 4 and matrix B" >:: fun _ ->
+         ( "Adding matrix A and 35" >:: fun _ ->
            assert_equal
-             (Matrix.to_string (Matrix.scalar_multiply 4. matrix_b))
+             (Matrix.to_string (Matrix.scalar_add matrix_a 35.))
+             "36. 37. \n38. 39. \n" );
+         ( "Subtracting matrix B by 10" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.scalar_subtract matrix_b 10.))
+             "-5. -4. \n-3. -2. \n" );
+         ( "Multiplying matrix B and 4" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.scalar_multiply matrix_b 4.))
              "20. 24. \n28. 32. \n" );
+         ( "Dividing matrix A by 6" >:: fun _ ->
+           assert_equal
+             (Matrix.to_string (Matrix.scalar_divide matrix_a 6.))
+             "0.166666666667 0.333333333333 \n0.5 0.666666666667 \n" );
          ( "Determinant of matrix A" >:: fun _ ->
            assert_equal (Matrix.determinant matrix_a) (-2.) );
          ( "Determinant of matrix B" >:: fun _ ->

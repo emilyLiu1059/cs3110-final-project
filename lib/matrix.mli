@@ -16,9 +16,20 @@ val transpose : float array array -> float array array
    columns of a = number of rows of b *)
 val multiply : float array array -> float array array -> float array array
 
-(* [scalar_multiply scalar matrix] performs multiplication between a scalar and
+(* [scalar_add matrix scalar] performs addition between a scalar and a matrix *)
+val scalar_add : float array array -> float -> float array array
+
+(* [scalar_subtract matrix scalar] performs addition between a scalar and a
+   matrix *)
+val scalar_subtract : float array array -> float -> float array array
+
+(* [scalar_multiply matrix scalar] performs multiplication between a scalar and
    a matrix *)
-val scalar_multiply : float -> float array array -> float array array
+val scalar_multiply : float array array -> float -> float array array
+
+(* [scalar_divide matrix scalar] performs division between a scalar and a
+   matrix *)
+val scalar_divide : float array array -> float -> float array array
 
 (* [determinant matrix] calculates the determinant of a matrix. Requires: matrix
    is square (has the same number of cols and rows) *)
