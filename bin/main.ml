@@ -450,7 +450,7 @@ let poly_button_layout =
     ~draggable:false ~keyboard_focus:true poly_button
 
 let example4 () =
-  let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
+  let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
   let layout =
     L.superpose ~name:"Calculator"
