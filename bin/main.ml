@@ -175,27 +175,27 @@ let e_button =
 let matrix_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "matrix"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Matrix"
 
 let quit_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "quit"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Quit"
 
 let delete_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "delete"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Delete"
 
 let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "trig"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Trig"
 
 let poly_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "poly"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Poly"
 
 let pi_layout =
   L.resident ~x:30 ~y:610 ~w:40 ~h:40
@@ -400,13 +400,6 @@ let negative_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true negative_button
 
-let stats_button_layout =
-  L.resident ~x:255 ~y:450 ~w:80 ~h:40
-    ~background:
-      (L.style_bg
-         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true stats_button
-
 let e_button_layout =
   L.resident ~x:80 ~y:775 ~w:40 ~h:40
     ~background:
@@ -415,39 +408,46 @@ let e_button_layout =
     ~draggable:false ~keyboard_focus:true e_button
 
 let matrix_button_layout =
-  L.resident ~x:75 ~y:350 ~w:80 ~h:40
+  L.resident ~x:50 ~y:380 ~w:85 ~h:45
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true matrix_button
 
 let quit_button_layout =
-  L.resident ~x:165 ~y:350 ~w:80 ~h:40
+  L.resident ~x:150 ~y:380 ~w:85 ~h:45
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true quit_button
 
 let delete_button_layout =
-  L.resident ~x:255 ~y:350 ~w:80 ~h:40
+  L.resident ~x:250 ~y:380 ~w:85 ~h:45
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true delete_button
 
 let trig_button_layout =
-  L.resident ~x:75 ~y:450 ~w:80 ~h:40
+  L.resident ~x:50 ~y:440 ~w:85 ~h:45
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true trig_button
 
 let poly_button_layout =
-  L.resident ~x:165 ~y:450 ~w:80 ~h:40
+  L.resident ~x:150 ~y:440 ~w:85 ~h:45
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true poly_button
+
+let stats_button_layout =
+  L.resident ~x:250 ~y:440 ~w:85 ~h:45
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
+    ~draggable:false ~keyboard_focus:true stats_button
 
 let example4 () =
   let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
