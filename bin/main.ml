@@ -172,30 +172,30 @@ let e_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "e"
 
-let rad_to_deg_button =
+let matrix_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "r to d"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "matrix"
 
-let deg_to_rad_button =
+let quit_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "d to r"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "quit"
 
-let deri_button =
+let delete_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "deri"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "delete"
 
-let inte_button =
+let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "inte"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "trig"
 
-let degree_button =
+let poly_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
-    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "degree"
+    ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "poly"
 
 let pi_layout =
   L.resident ~x:30 ~y:610 ~w:40 ~h:40
@@ -414,40 +414,40 @@ let e_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true e_button
 
-let deg_to_rad_button_layout =
+let matrix_button_layout =
   L.resident ~x:30 ~y:830 ~w:40 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true deg_to_rad_button
+    ~draggable:false ~keyboard_focus:true matrix_button
 
-let rad_to_deg_button_layout =
+let quit_button_layout =
   L.resident ~x:80 ~y:830 ~w:40 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true rad_to_deg_button
+    ~draggable:false ~keyboard_focus:true quit_button
 
-let deri_button_layout =
+let delete_button_layout =
   L.resident ~x:155 ~y:530 ~w:55 ~h:50
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true deri_button
+    ~draggable:false ~keyboard_focus:true delete_button
 
-let inte_button_layout =
+let trig_button_layout =
   L.resident ~x:225 ~y:530 ~w:55 ~h:50
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true inte_button
+    ~draggable:false ~keyboard_focus:true trig_button
 
-let degree_button_layout =
+let poly_button_layout =
   L.resident ~x:85 ~y:530 ~w:55 ~h:50
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
-    ~draggable:false ~keyboard_focus:true degree_button
+    ~draggable:false ~keyboard_focus:true poly_button
 
 let example4 () =
   let box = W.box ~w:500 ~h:600 ~style:round_blue_box () in
@@ -487,11 +487,11 @@ let example4 () =
         right_bracket_layout;
         x_layout;
         e_button_layout;
-        rad_to_deg_button_layout;
-        deg_to_rad_button_layout;
-        deri_button_layout;
-        inte_button_layout;
-        degree_button_layout;
+        matrix_button_layout;
+        quit_button_layout;
+        delete_button_layout;
+        trig_button_layout;
+        poly_button_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
