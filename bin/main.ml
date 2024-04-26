@@ -401,7 +401,7 @@ let negative_button_layout =
     ~draggable:false ~keyboard_focus:true negative_button
 
 let stats_button_layout =
-  L.resident ~x:295 ~y:530 ~w:55 ~h:50
+  L.resident ~x:255 ~y:450 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
@@ -415,35 +415,35 @@ let e_button_layout =
     ~draggable:false ~keyboard_focus:true e_button
 
 let matrix_button_layout =
-  L.resident ~x:30 ~y:830 ~w:40 ~h:40
+  L.resident ~x:75 ~y:350 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true matrix_button
 
 let quit_button_layout =
-  L.resident ~x:80 ~y:830 ~w:40 ~h:40
+  L.resident ~x:165 ~y:350 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true quit_button
 
 let delete_button_layout =
-  L.resident ~x:155 ~y:530 ~w:55 ~h:50
+  L.resident ~x:255 ~y:350 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true delete_button
 
 let trig_button_layout =
-  L.resident ~x:225 ~y:530 ~w:55 ~h:50
+  L.resident ~x:75 ~y:450 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true trig_button
 
 let poly_button_layout =
-  L.resident ~x:85 ~y:530 ~w:55 ~h:50
+  L.resident ~x:165 ~y:450 ~w:80 ~h:40
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
