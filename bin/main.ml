@@ -317,84 +317,84 @@ let enter_button_layout =
     ~draggable:false ~keyboard_focus:true enter_button
 
 let one_button_layout =
-  L.resident ~x:155 ~y:605 ~w:55 ~h:50
+  L.resident ~x:140 ~y:530 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true one_button
 
 let two_button_layout =
-  L.resident ~x:225 ~y:605 ~w:55 ~h:50
+  L.resident ~x:215 ~y:530 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true two_button
 
 let three_button_layout =
-  L.resident ~x:295 ~y:605 ~w:55 ~h:50
+  L.resident ~x:290 ~y:530 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true three_button
 
 let four_button_layout =
-  L.resident ~x:155 ~y:680 ~w:55 ~h:50
+  L.resident ~x:140 ~y:610 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true four_button
 
 let five_button_layout =
-  L.resident ~x:225 ~y:680 ~w:55 ~h:50
+  L.resident ~x:215 ~y:610 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true five_button
 
 let six_button_layout =
-  L.resident ~x:295 ~y:680 ~w:55 ~h:50
+  L.resident ~x:290 ~y:610 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true six_button
 
 let seven_button_layout =
-  L.resident ~x:155 ~y:755 ~w:55 ~h:50
+  L.resident ~x:140 ~y:690 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true seven_button
 
 let eight_button_layout =
-  L.resident ~x:225 ~y:755 ~w:55 ~h:50
+  L.resident ~x:215 ~y:690 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true eight_button
 
 let nine_button_layout =
-  L.resident ~x:295 ~y:755 ~w:55 ~h:50
+  L.resident ~x:290 ~y:690 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true nine_button
 
 let zero_button_layout =
-  L.resident ~x:155 ~y:830 ~w:55 ~h:50
+  L.resident ~x:140 ~y:770 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true zero_button
 
 let dot_button_layout =
-  L.resident ~x:225 ~y:830 ~w:55 ~h:50
+  L.resident ~x:215 ~y:770 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true dot_button
 
 let negative_button_layout =
-  L.resident ~x:295 ~y:830 ~w:55 ~h:50
+  L.resident ~x:290 ~y:770 ~w:65 ~h:70
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
