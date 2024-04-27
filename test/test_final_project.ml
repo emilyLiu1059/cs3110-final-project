@@ -17,6 +17,22 @@ let () =
   print_string "Dividing 8.0 by 2.0: ";
   print_endline (string_of_float (Basicops.divide 8. 2.))
 
+let () =
+  print_string "2 to the power of 3: ";
+  print_endline (string_of_float (Basicops.pow 2. 3))
+
+let () =
+  print_string "Triple root of 8: ";
+  print_endline (string_of_float (Basicops.nth_root 8. 3))
+
+let () =
+  print_string "Absolute value of -5: ";
+  print_endline (string_of_float (Basicops.abs (-5.)))
+
+let () =
+  print_string "Gcd of 4 and 6: ";
+  print_endline (string_of_int (Basicops.gcd 4 6))
+
 let () = print_endline ""
 let matrix_a = [| [| 1.0; 2.0 |]; [| 3.0; 4.0 |] |]
 let matrix_b = [| [| 5.0; 6.0 |]; [| 7.0; 8.0 |] |]
@@ -314,6 +330,11 @@ let tests =
          ("Subtract" >:: fun _ -> assert_equal (Basicops.subtract 5. 3.) 2.);
          ("Multiply" >:: fun _ -> assert_equal (Basicops.multiply 3. 4.) 12.);
          ("Divide" >:: fun _ -> assert_equal (Basicops.divide 8. 2.) 4.);
+         ("Power" >:: fun _ -> assert_equal (Basicops.pow 2. 3) 8.);
+         ( "Nth_root" >:: fun _ ->
+           assert_equal (Basicops.nth_root 8. 3) 2.00000000001206191 );
+         ("Absolute Value" >:: fun _ -> assert_equal (Basicops.abs (-5.)) 5.);
+         ("Gcd" >:: fun _ -> assert_equal (Basicops.gcd 4 6) 2);
          ( "Matrix A" >:: fun _ ->
            assert_equal (Matrix.to_string matrix_a) "1. 2. \n3. 4. \n" );
          ( "Matrix B" >:: fun _ ->
