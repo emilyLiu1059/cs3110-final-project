@@ -17,6 +17,12 @@ let round_grey_box =
   let border = mk_border ~radius:25 thick_grey_line in
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
+let label = W.label ""
+
+let add_text l str =
+  let current_text = W.get_text l in
+  current_text ^ str
+
 let pi =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
@@ -76,26 +82,31 @@ let clear_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Clear"
+    ~action:(fun _ -> W.set_text label "")
 
 let add_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "+"
+    ~action:(fun _ -> W.set_text label (add_text label "+"))
 
 let subtract_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
+    ~action:(fun _ -> W.set_text label (add_text label "-"))
 
 let multiply_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "x"
+    ~action:(fun _ -> W.set_text label (add_text label "x"))
 
 let divide_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "÷"
+    ~action:(fun _ -> W.set_text label (add_text label "÷"))
 
 let enter_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -106,61 +117,73 @@ let one_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "1"
+    ~action:(fun _ -> W.set_text label (add_text label "1"))
 
 let two_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "2"
+    ~action:(fun _ -> W.set_text label (add_text label "2"))
 
 let three_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "3"
+    ~action:(fun _ -> W.set_text label (add_text label "3"))
 
 let four_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "4"
+    ~action:(fun _ -> W.set_text label (add_text label "4"))
 
 let five_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "5"
+    ~action:(fun _ -> W.set_text label (add_text label "5"))
 
 let six_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "6"
+    ~action:(fun _ -> W.set_text label (add_text label "6"))
 
 let seven_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "7"
+    ~action:(fun _ -> W.set_text label (add_text label "7"))
 
 let eight_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "8"
+    ~action:(fun _ -> W.set_text label (add_text label "8"))
 
 let nine_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "9"
+    ~action:(fun _ -> W.set_text label (add_text label "9"))
 
 let zero_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "0"
+    ~action:(fun _ -> W.set_text label (add_text label "0"))
 
 let dot_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "."
+    ~action:(fun _ -> W.set_text label (add_text label "."))
 
 let negative_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
+    ~action:(fun _ -> W.set_text label (add_text label "-"))
 
 let stats_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -449,6 +472,13 @@ let stats_button_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "lightgrey"))))
     ~draggable:false ~keyboard_focus:true stats_button
 
+let label_layout =
+  L.resident ~x:30 ~y:30 ~w:200 ~h:45
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "white"))))
+    ~draggable:false ~keyboard_focus:true label
+
 let example4 () =
   let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
@@ -492,6 +522,7 @@ let example4 () =
         delete_button_layout;
         trig_button_layout;
         poly_button_layout;
+        label_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
