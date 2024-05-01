@@ -27,31 +27,37 @@ let pi =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "π"
+    ~action:(fun _ -> W.set_text label (add_text label "π"))
 
 let comma =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ","
+    ~action:(fun _ -> W.set_text label (add_text label ","))
 
 let left_s_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "["
+    ~action:(fun _ -> W.set_text label (add_text label "["))
 
 let right_s_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "]"
+    ~action:(fun _ -> W.set_text label (add_text label "]"))
 
 let left_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "("
+    ~action:(fun _ -> W.set_text label (add_text label "("))
 
 let right_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ")"
+    ~action:(fun _ -> W.set_text label (add_text label ")"))
 
 let x =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
