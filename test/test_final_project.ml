@@ -323,6 +323,28 @@ let () =
   print_endline
     (Poly.multiply [ 2.; 3. ] [ 4.; 2. ] |> Poly.string_of_float_list)
 
+let () =
+  print_string "Convert polynomial [1.0; -3.5; 2.0] to readable string: ";
+  print_endline (Poly.poly_to_string [ 1.0; -3.5; 2.0 ])
+
+let () =
+  print_string "Compose two polynomials [2.0; 3.0; 2.0] and [0.0; 2.0]: ";
+  print_endline
+    (Poly.compose_polynomials [ 2.0; 3.0; 2.0 ] [ 0.0; 2.0 ]
+    |> Poly.string_of_float_list)
+
+let () =
+  print_string "Convert polynomial [3.0; -2.0; 0.0; 1.0] to readable string: ";
+  print_endline (Poly.poly_to_string [ 3.0; -2.0; 0.0; 1.0 ])
+
+let () =
+  print_string "Convert polynomial [0.0; 0.0; 5.0] to readable string: ";
+  print_endline (Poly.poly_to_string [ 0.0; 0.0; 5.0 ])
+
+let () =
+  print_string "Convert polynomial [1.0; 0.0; -1.0; 0.0] to readable string: ";
+  print_endline (Poly.poly_to_string [ 1.0; 0.0; -1.0; 0.0 ])
+
 let tests =
   "test suite"
   >::: [
@@ -462,6 +484,51 @@ let tests =
            assert_equal (Trig.arctan 0.8) 0.674739330996735442 );
          ( "arctan 1." >:: fun _ ->
            assert_equal (Trig.arctan 1.) 0.77290595166696 );
+         ( "Convert radians to degrees" >:: fun _ ->
+           assert_equal (Poly.rad_to_deg Poly.pi) 180. );
+         ( "Convert degrees to radians" >:: fun _ ->
+           assert_equal (Poly.deg_to_rad 180.) Poly.pi );
+         ( "Evaluate polynomial at x=2" >:: fun _ ->
+           assert_equal (Poly.eval 2. [ 1.; -3.; 2. ]) 3. );
+         (* Evaluates 1 - 3*2 + 2*2^2 *)
+         ( "First derivative of a polynomial" >:: fun _ ->
+           assert_equal (Poly.deri_once [ 1.; -3.; 2. ]) [ -3.; 4. ] );
+         (* Derivative of 1 - 3x + 2x^2 is -3 + 4x *)
+         ( "N-th derivative of a polynomial (n=2)" >:: fun _ ->
+           assert_equal (Poly.deri 2 [ 1.; -3.; 2. ]) [ 4. ] );
+         (* Second derivative of 1 - 3x + 2x^2 is 4 *)
+         ( "Integral of a polynomial with constant c=1" >:: fun _ ->
+           assert_equal (Poly.inte_once 1. [ 1.; -3.; 2. ]) [ 1.; -1.5; 1.; 1. ]
+         );
+         (* Integral of 1 - 3x + 2x^2 dx *)
+         ( "Add two polynomials" >:: fun _ ->
+           assert_equal (Poly.add [ 1.; 3. ] [ 2.; -1.; 4. ]) [ 3.; 2.; 4. ] );
+         (* Adds 1 + 3x and 2 - x + 4x^2 *)
+         ( "Degree of a polynomial" >:: fun _ ->
+           assert_equal (Poly.degree [ 0.; 0.; 1.; -3.; 2. ]) 4 );
+         (* Degree of 0 + 0x + 1x^2 - 3x^3 + 2x^4 *)
+         ( "Multiply two polynomials" >:: fun _ ->
+           assert_equal
+             (Poly.multiply [ 1.; 3. ] [ 2.; -1.; 4. ])
+             [ 2.; 5.; 10.; 12. ] );
+         ( "GCD of two polynomials" >:: fun _ ->
+           assert_equal
+             (Poly.gcd_polynomial [ 1.; -3.; 2. ] [ 1.; -1. ])
+             [ 1.; -1. ] );
+         ( "Compose two polynomials" >:: fun _ ->
+           assert_equal
+             (Poly.compose_polynomials [ 2.; 0.; 1. ] [ 0.; 1. ])
+             [ 2.; 0.; 1. ] );
+         (* Composes 2 + x^2 with x *)
+         ( "Subtract two polynomials" >:: fun _ ->
+           assert_equal (Poly.subtract [ 2.; 3.; 4. ] [ 1.; 2. ]) [ 1.; 1.; 4. ]
+         );
+         ( "Evaluate polynomial at multiple points" >:: fun _ ->
+           assert_equal
+             (Poly.eval_at_points [ 1.; -3.; 2. ] [ 0.; 1.; 2. ])
+             [ 1.; 0.; 3. ] );
+         ( "Convert polynomial to string" >:: fun _ ->
+           assert_equal (Poly.poly_to_string [ 1.; -3.; 2. ]) "2x^2 - 3x + 1" );
        ]
 
 let _ = run_test_tt_main tests
