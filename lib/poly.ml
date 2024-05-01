@@ -85,3 +85,69 @@ let degree p =
 let string_of_float_list lst =
   let string_list = List.map string_of_float lst in
   String.concat ", " string_list
+
+let poly_to_string p =
+  let rec aux i = function
+    | [] -> ""
+    | h :: t -> (
+        let term =
+          match (h, i) with
+          | 0., _ -> ""
+          | h, 0 -> string_of_float h
+          | h, 1 ->
+              if h = 1. then "x"
+              else if h = -1. then "-x"
+              else string_of_float h ^ "x"
+          | h, i ->
+              if h = 1. then "x^" ^ string_of_int i
+              else if h = -1. then "-x^" ^ string_of_int i
+              else string_of_float h ^ "x^" ^ string_of_int i
+        in
+        if term = "" then aux (i + 1) t
+        else
+          match aux (i + 1) t with
+          | "" -> term
+          | s -> term ^ " + " ^ s)
+  in
+  aux 0 (List.rev p)
+
+(* Using this function, you can convert a polynomial like [1.; -3.; 2.] which
+   represents 1 - 3x + 2x^2 into a string "2x^2 - 3x + 1". *)
+
+let divide_polynomials dividend divisor =
+  let rec div_aux dividend divisor lead_coeff_divisor deg_divisor result =
+    if List.length dividend < deg_divisor then (result, dividend)
+    else
+      let lead_coeff = List.hd (List.rev dividend) in
+      let factor = lead_coeff /. lead_coeff_divisor in
+      let deg_diff = List.length dividend - deg_divisor in
+      let subtrahend =
+        List.map
+          (fun x -> x *. factor)
+          (divisor @ List.init deg_diff (fun _ -> 0.))
+      in
+      let new_dividend = List.map2 (fun x y -> x -. y) dividend subtrahend in
+      let new_result = (factor :: List.init deg_diff (fun _ -> 0.)) @ result in
+      div_aux
+        (List.rev (List.tl (List.rev new_dividend)))
+        divisor lead_coeff_divisor deg_divisor new_result
+  in
+  div_aux dividend divisor (List.hd (List.rev divisor)) (List.length divisor) []
+
+let rec gcd_polynomial p1 p2 =
+  if p2 = [] then p1 (* p2 is zero *)
+  else
+    let _, remainder = divide_polynomials p1 p2 in
+    gcd_polynomial p2 remainder
+
+let compose_polynomials p g =
+  List.fold_right (fun coeff acc -> add (multiply acc g) [ coeff ]) p [ 1.0 ]
+(* Starts with the constant term and composes upwards *)
+
+let rec subtract p1 p2 =
+  match (p1, p2) with
+  | [], _ -> List.map (fun x -> -.x) p2
+  | _, [] -> p1
+  | c1 :: p1', c2 :: p2' -> (c1 -. c2) :: subtract p1' p2'
+
+let eval_at_points poly points = List.map (fun x -> eval x poly) points
