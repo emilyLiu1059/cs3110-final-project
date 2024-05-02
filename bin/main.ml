@@ -17,7 +17,8 @@ let round_grey_box =
   let border = mk_border ~radius:25 thick_grey_line in
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
-let label = W.label ""
+let label = W.label ~size:50 ~align:Min ""
+let label_output = W.label ~size:50 ~align:Max ""
 
 let add_text l str =
   let current_text = W.get_text l in
@@ -479,11 +480,18 @@ let stats_button_layout =
     ~draggable:false ~keyboard_focus:true stats_button
 
 let label_layout =
-  L.resident ~x:30 ~y:30 ~w:200 ~h:45
+  L.resident ~x:30 ~y:30 ~w:460 ~h:115
     ~background:
       (L.style_bg
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "white"))))
     ~draggable:false ~keyboard_focus:true label
+
+let label_output_layout =
+  L.resident ~x:30 ~y:175 ~w:460 ~h:115
+    ~background:
+      (L.style_bg
+         (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "white"))))
+    ~draggable:false ~keyboard_focus:true label_output
 
 let example4 () =
   let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
@@ -529,6 +537,7 @@ let example4 () =
         trig_button_layout;
         poly_button_layout;
         label_layout;
+        label_output_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));
