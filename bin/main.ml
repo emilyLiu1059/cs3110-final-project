@@ -1,6 +1,13 @@
+open Final_project
 open Bogue
 module W = Widget
 module L = Layout
+
+let string1 = ref ""
+let string1_done = ref false
+let operation = ref Basicops.add
+let string2 = ref ""
+let output = ref ""
 
 let thick_grey_line =
   Style.mk_line ~color:Draw.(opaque grey) ~width:3 ~style:Solid ()
@@ -23,6 +30,10 @@ let label_output = W.label ~size:50 ~align:Max ""
 let add_text l str =
   let current_text = W.get_text l in
   current_text ^ str
+
+let delete_text l =
+  let current_text = W.get_text l in
+  String.sub current_text 0 (String.length current_text - 1)
 
 let pi =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -89,108 +100,168 @@ let clear_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Clear"
-    ~action:(fun _ -> W.set_text label "")
+    ~action:(fun _ ->
+      string1 := "";
+      string1_done := false;
+      operation := Basicops.add;
+      string2 := "";
+      output := "";
+      W.set_text label "";
+      W.set_text label_output "")
 
 let add_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "+"
-    ~action:(fun _ -> W.set_text label (add_text label "+"))
+    ~action:(fun _ ->
+      operation := Basicops.add;
+      string1_done := true;
+      W.set_text label (add_text label "+"))
 
 let subtract_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
-    ~action:(fun _ -> W.set_text label (add_text label "-"))
+    ~action:(fun _ ->
+      operation := Basicops.subtract;
+      string1_done := true;
+      W.set_text label (add_text label "-"))
 
 let multiply_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "x"
-    ~action:(fun _ -> W.set_text label (add_text label "x"))
+    ~action:(fun _ ->
+      operation := Basicops.multiply;
+      string1_done := true;
+      W.set_text label (add_text label "x"))
 
 let divide_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "÷"
-    ~action:(fun _ -> W.set_text label (add_text label "÷"))
+    ~action:(fun _ ->
+      operation := Basicops.divide;
+      string1_done := true;
+      W.set_text label (add_text label "÷"))
 
 let enter_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Enter"
+    ~action:(fun _ ->
+      output :=
+        string_of_float
+          (!operation (float_of_string !string1) (float_of_string !string2));
+      W.set_text label_output (add_text label_output !output))
 
 let one_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "1"
-    ~action:(fun _ -> W.set_text label (add_text label "1"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "1"
+      else string2 := !string2 ^ "1";
+      W.set_text label (add_text label "1"))
 
 let two_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "2"
-    ~action:(fun _ -> W.set_text label (add_text label "2"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "2"
+      else string2 := !string2 ^ "2";
+      W.set_text label (add_text label "2"))
 
 let three_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "3"
-    ~action:(fun _ -> W.set_text label (add_text label "3"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "3"
+      else string2 := !string2 ^ "3";
+      W.set_text label (add_text label "3"))
 
 let four_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "4"
-    ~action:(fun _ -> W.set_text label (add_text label "4"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "4"
+      else string2 := !string2 ^ "4";
+      W.set_text label (add_text label "4"))
 
 let five_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "5"
-    ~action:(fun _ -> W.set_text label (add_text label "5"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "5"
+      else string2 := !string2 ^ "5";
+      W.set_text label (add_text label "5"))
 
 let six_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "6"
-    ~action:(fun _ -> W.set_text label (add_text label "6"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "6"
+      else string2 := !string2 ^ "6";
+      W.set_text label (add_text label "6"))
 
 let seven_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "7"
-    ~action:(fun _ -> W.set_text label (add_text label "7"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "7"
+      else string2 := !string2 ^ "7";
+      W.set_text label (add_text label "7"))
 
 let eight_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "8"
-    ~action:(fun _ -> W.set_text label (add_text label "8"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "8"
+      else string2 := !string2 ^ "8";
+      W.set_text label (add_text label "8"))
 
 let nine_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "9"
-    ~action:(fun _ -> W.set_text label (add_text label "9"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "9"
+      else string2 := !string2 ^ "9";
+      W.set_text label (add_text label "9"))
 
 let zero_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "0"
-    ~action:(fun _ -> W.set_text label (add_text label "0"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "0"
+      else string2 := !string2 ^ "0";
+      W.set_text label (add_text label "0"))
 
 let dot_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "."
-    ~action:(fun _ -> W.set_text label (add_text label "."))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "."
+      else string2 := !string2 ^ ".";
+      W.set_text label (add_text label "."))
 
 let negative_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
-    ~action:(fun _ -> W.set_text label (add_text label "-"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "-"
+      else string2 := !string2 ^ "-";
+      W.set_text label (add_text label "-"))
 
 let stats_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -211,11 +282,20 @@ let quit_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Quit"
+    ~action:(fun _ -> exit 0)
 
 let delete_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Delete"
+    ~action:(fun _ ->
+      if !string1_done = false then
+        string1 := String.sub !string1 0 (String.length !string1 - 1)
+      else if !string2 = "" then (
+        string1_done := false;
+        operation := Basicops.add)
+      else string2 := String.sub !string2 0 (String.length !string2 - 1);
+      W.set_text label (delete_text label))
 
 let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
