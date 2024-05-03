@@ -2,14 +2,6 @@ open OUnit2
 open Final_project
 
 let () =
-  print_endline
-    (Matrix.to_string (Matrix.from_calculator_string "[[1.,2.],[3.,4.]]"))
-
-let () =
-  print_endline
-    (Matrix.to_string (Matrix.from_calculator_string "[[5.,6.],[7.,8.]]"))
-
-let () =
   print_string "Adding 1.0 and 2.0: ";
   print_endline (string_of_float (Basicops.add 1. 2.))
 
@@ -165,6 +157,14 @@ let () =
   print_endline "Calculator string of matrix B: ";
   print_endline (Matrix.to_calculator_string matrix_b)
 
+let () =
+  print_string
+    (Matrix.to_string (Matrix.from_calculator_string "[[1.,2.],[3.,4.]]"))
+
+let () =
+  print_string
+    (Matrix.to_string (Matrix.from_calculator_string "[[5.,6.],[7.,8.]]"))
+
 let () = print_endline ""
 
 let () =
@@ -308,7 +308,8 @@ let () =
   print_endline (360. |> Poly.deg_to_rad |> string_of_float)
 
 let () =
-  print_string "Evaluate polynomial [2, 3, 4, 2] at a given value of\n\n   2.0.";
+  print_string
+    "Evaluate polynomial [2, 3, 4, 2] at a given value\n   of\n\n 2.0.";
   print_endline (Poly.eval 2. [ 2.; 3.; 4.; 2. ] |> string_of_float)
 
 let () =
@@ -321,7 +322,8 @@ let () =
 
 let () =
   print_string
-    "Integral the polynomial [2, 3, 4, 2] once, with\n\n   constant = 2 added.";
+    "Integral the polynomial [2, 3, 4, 2] once, with\n\n\n\
+    \   constant = 2 added.";
   print_endline
     (Poly.inte_once 2. [ 2.; 3.; 4.; 2. ] |> Poly.string_of_float_list)
 
@@ -340,25 +342,27 @@ let () =
     (Poly.multiply [ 2.; 3. ] [ 4.; 2. ] |> Poly.string_of_float_list)
 
 let () =
-  print_string "Convert polynomial [1.0; -3.5; 2.0] to readable string: ";
+  print_string "Convert polynomial [1.0; -3.5; 2.0] to readable\n   string: ";
   print_endline (Poly.poly_to_string [ 1.0; -3.5; 2.0 ])
 
 let () =
-  print_string "Compose two polynomials [2.0; 3.0; 2.0] and [0.0; 2.0]: ";
+  print_string "Compose two polynomials [2.0; 3.0; 2.0] and [0.0;\n   2.0]: ";
   print_endline
     (Poly.compose_polynomials [ 2.0; 3.0; 2.0 ] [ 0.0; 2.0 ]
     |> Poly.string_of_float_list)
 
 let () =
-  print_string "Convert polynomial [3.0; -2.0; 0.0; 1.0] to readable string: ";
+  print_string
+    "Convert polynomial [3.0; -2.0; 0.0; 1.0] to readable\n   string: ";
   print_endline (Poly.poly_to_string [ 3.0; -2.0; 0.0; 1.0 ])
 
 let () =
-  print_string "Convert polynomial [0.0; 0.0; 5.0] to readable string: ";
+  print_string "Convert polynomial [0.0; 0.0; 5.0] to readable string:\n   ";
   print_endline (Poly.poly_to_string [ 0.0; 0.0; 5.0 ])
 
 let () =
-  print_string "Convert polynomial [1.0; 0.0; -1.0; 0.0] to readable string: ";
+  print_string
+    "Convert polynomial [1.0; 0.0; -1.0; 0.0] to readable\n   string: ";
   print_endline (Poly.poly_to_string [ 1.0; 0.0; -1.0; 0.0 ])
 
 let tests =
@@ -413,7 +417,7 @@ let tests =
            assert_equal
              (Matrix.to_string (Matrix.scalar_multiply matrix_b 4.))
              "20. 24. \n28. 32. \n" );
-         ( "Dividing matrix A by 6" >:: fun _ ->
+         ( "Dividing\n   matrix A by 6" >:: fun _ ->
            assert_equal
              (Matrix.to_string (Matrix.scalar_divide matrix_a 6.))
              "0.166666666667 0.333333333333 \n0.5 0.666666666667 \n" );
@@ -421,7 +425,7 @@ let tests =
            assert_equal (Matrix.determinant matrix_a) (-2.) );
          ( "Determinant of matrix B" >:: fun _ ->
            assert_equal (Matrix.determinant matrix_a) (-2.) );
-         ( "Determinant of identity matrix" >:: fun _ ->
+         ( "Determinant of\n   identity matrix" >:: fun _ ->
            assert_equal (Matrix.determinant (Matrix.identity_matrix 2)) 1. );
          ( "Swap rows 0 and 1 of matrix A" >:: fun _ ->
            assert_equal
@@ -457,13 +461,15 @@ let tests =
            assert_equal
              (Matrix.to_string (Matrix.row_reduce matrix_b))
              "1. 0. \n-0. 1. \n" );
-         ( "Row reduce identity matrix 3" >:: fun _ ->
+         ( "Row reduce identity\n   matrix 3" >:: fun _ ->
            assert_equal
              (Matrix.to_string (Matrix.row_reduce (Matrix.identity_matrix 3)))
              "1. 0. 0. \n0. 1. 0. \n0. 0. 1. \n" );
-         ("Rank of matrix A" >:: fun _ -> assert_equal (Matrix.rank matrix_a) 2);
-         ("Rank of matrix B" >:: fun _ -> assert_equal (Matrix.rank matrix_b) 2);
-         ( "Rank of identity matrix 3" >:: fun _ ->
+         ( "Rank of\n   matrix A" >:: fun _ ->
+           assert_equal (Matrix.rank matrix_a) 2 );
+         ( "Rank of\n   matrix B" >:: fun _ ->
+           assert_equal (Matrix.rank matrix_b) 2 );
+         ( "Rank of\n   identity matrix 3" >:: fun _ ->
            assert_equal (Matrix.rank (Matrix.identity_matrix 3)) 3 );
          ( "Calculator string of matrix A" >:: fun _ ->
            assert_equal
@@ -471,8 +477,20 @@ let tests =
              "[[1.,2.],[3.,4.]]" );
          ( "Calculator string of matrix B" >:: fun _ ->
            assert_equal
-             (Matrix.to_calculator_string matrix_a)
+             (Matrix.to_calculator_string matrix_b)
              "[[5.,6.],[7.,8.]]" );
+         ( "Obtain matrix A from calculator string [[1.,2.],[3.,4.]]"
+         >:: fun _ ->
+           assert_equal
+             (Matrix.to_string
+                (Matrix.from_calculator_string "[[1.,2.],[3.,4.]]"))
+             (Matrix.to_string matrix_a) );
+         ( "Obtain matrix B from calculator string [[5.,6.],[7.,8.]]"
+         >:: fun _ ->
+           assert_equal
+             (Matrix.to_string
+                (Matrix.from_calculator_string "[[5.,6.],[7.,8.]]"))
+             (Matrix.to_string matrix_b) );
          ("sin45" >:: fun _ -> assert_equal (Trig.sin 45.) 0.707106781186547462);
          ("sin30" >:: fun _ -> assert_equal (Trig.sin 30.) 0.499999999999999944);
          ("sin60" >:: fun _ -> assert_equal (Trig.sin 60.) 0.866025403784438486);
@@ -508,14 +526,14 @@ let tests =
            assert_equal (Trig.arctan 0.8) 0.674739330996735442 );
          ( "arctan 1." >:: fun _ ->
            assert_equal (Trig.arctan 1.) 0.77290595166696 );
-         ( "Convert radians to degrees" >:: fun _ ->
+         ( "Convert radians\n   to degrees" >:: fun _ ->
            assert_equal (Poly.rad_to_deg Poly.pi) 180. );
          ( "Convert degrees to radians" >:: fun _ ->
            assert_equal (Poly.deg_to_rad 180.) Poly.pi );
          ( "Evaluate polynomial at x=2" >:: fun _ ->
            assert_equal (Poly.eval 2. [ 1.; -3.; 2. ]) 3. );
          (* Evaluates 1 - 3*2 + 2*2^2 *)
-         ( "First derivative of a polynomial" >:: fun _ ->
+         ( "First\n   derivative of a polynomial" >:: fun _ ->
            assert_equal (Poly.deri_once [ 1.; -3.; 2. ]) [ -3.; 4. ] );
          (* Derivative of 1 - 3x + 2x^2 is -3 + 4x *)
          ( "N-th derivative of a polynomial (n=2)" >:: fun _ ->

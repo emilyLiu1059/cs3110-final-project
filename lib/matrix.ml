@@ -217,26 +217,30 @@ let to_calculator_string a =
   in
   "[" ^ String.concat "," (List.map string_of_row (Array.to_list a)) ^ "]"
 
-let split_string str delimiter =
-  let rec split_acc index start_indices =
-    try
-      let idx = String.index_from str index delimiter in
-      split_acc (idx + 1) (idx :: start_indices)
-    with Not_found ->
-      List.rev
-        (String.sub str (List.hd start_indices) (index - List.hd start_indices)
-        ::
-        (if List.length start_indices = 0 then []
-         else
-           split_acc (String.length str)
-             ((List.hd start_indices + 1) :: List.tl start_indices)))
-  in
-  split_acc 0 []
-
-let parse_row row_str =
-  let nums = split_string row_str ',' in
-  Array.of_list (List.map float_of_string nums)
-
 let from_calculator_string s =
-  let rows = split_string s ';' in
-  Array.of_list (List.map parse_row rows)
+  let s = String.sub s 2 (String.length s - 4) in
+  let split1 = String.split_on_char ']' s in
+  let head = ref true in
+  let split2 =
+    let rec loop = function
+      | [] -> []
+      | h :: t ->
+          if !head then (
+            head := false;
+            h :: loop t)
+          else if String.length h > 2 then
+            String.sub h 2 (String.length h - 2) :: loop t
+          else loop t
+    in
+    loop split1
+  in
+  let split3 =
+    let rec loop1 = function
+      | [] -> []
+      | h :: t ->
+          Array.of_list (List.map float_of_string (String.split_on_char ',' h))
+          :: loop1 t
+    in
+    loop1 split2
+  in
+  Array.of_list split3

@@ -43,37 +43,55 @@ let pi =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "π"
-    ~action:(fun _ -> W.set_text label (add_text label "π"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "π"
+      else string2 := !string2 ^ "π";
+      W.set_text label (add_text label "π"))
 
 let comma =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ","
-    ~action:(fun _ -> W.set_text label (add_text label ","))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ ","
+      else string2 := !string2 ^ ",";
+      W.set_text label (add_text label ","))
 
 let left_s_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "["
-    ~action:(fun _ -> W.set_text label (add_text label "["))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "["
+      else string2 := !string2 ^ "[";
+      W.set_text label (add_text label "["))
 
 let right_s_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "]"
-    ~action:(fun _ -> W.set_text label (add_text label "]"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "]"
+      else string2 := !string2 ^ "]";
+      W.set_text label (add_text label "]"))
 
 let left_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "("
-    ~action:(fun _ -> W.set_text label (add_text label "("))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ "()"
+      else string2 := !string2 ^ "()";
+      W.set_text label (add_text label "("))
 
 let right_bracket =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) ")"
-    ~action:(fun _ -> W.set_text label (add_text label ")"))
+    ~action:(fun _ ->
+      if !string1_done = false then string1 := !string1 ^ ")"
+      else string2 := !string2 ^ ")";
+      W.set_text label (add_text label ")"))
 
 let x =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -162,7 +180,85 @@ let enter_button =
         if !matrix_operation = 1 then
           output :=
             Matrix.to_calculator_string
-              (Matrix.identity_matrix (int_of_string !string1)))
+              (Matrix.identity_matrix (int_of_string !string1))
+        else if !matrix_operation = 2 then
+          output :=
+            Matrix.to_calculator_string
+              (Matrix.transpose (Matrix.from_calculator_string !string1))
+        else if !matrix_operation = 3 then
+          output :=
+            string_of_float
+              (Matrix.determinant (Matrix.from_calculator_string !string1))
+        else if !matrix_operation = 4 then
+          output :=
+            Matrix.to_calculator_string
+              (Matrix.row_reduce (Matrix.from_calculator_string !string1))
+        else if !matrix_operation = 5 then
+          output :=
+            string_of_int (Matrix.rank (Matrix.from_calculator_string !string1))
+        else if !matrix_operation = 6 then
+          output :=
+            match float_of_string_opt !string1 with
+            | None -> (
+                match float_of_string_opt !string2 with
+                | None ->
+                    Matrix.to_calculator_string
+                      (Matrix.add
+                         (Matrix.from_calculator_string !string1)
+                         (Matrix.from_calculator_string !string2))
+                | Some f ->
+                    Matrix.to_calculator_string
+                      (Matrix.scalar_add
+                         (Matrix.from_calculator_string !string1)
+                         f))
+            | Some f ->
+                Matrix.to_calculator_string
+                  (Matrix.scalar_add (Matrix.from_calculator_string !string2) f)
+        else if !matrix_operation = 7 then
+          output :=
+            match float_of_string_opt !string2 with
+            | None -> (
+                match float_of_string_opt !string1 with
+                | None ->
+                    Matrix.to_calculator_string
+                      (Matrix.subtract
+                         (Matrix.from_calculator_string !string1)
+                         (Matrix.from_calculator_string !string2))
+                | Some _ -> failwith "does not support operation")
+            | Some f ->
+                Matrix.to_calculator_string
+                  (Matrix.scalar_subtract
+                     (Matrix.from_calculator_string !string1)
+                     f)
+        else if !matrix_operation = 8 then
+          output :=
+            match float_of_string_opt !string1 with
+            | None -> (
+                match float_of_string_opt !string2 with
+                | None ->
+                    Matrix.to_calculator_string
+                      (Matrix.multiply
+                         (Matrix.from_calculator_string !string1)
+                         (Matrix.from_calculator_string !string2))
+                | Some f ->
+                    Matrix.to_calculator_string
+                      (Matrix.scalar_multiply
+                         (Matrix.from_calculator_string !string1)
+                         f))
+            | Some f ->
+                Matrix.to_calculator_string
+                  (Matrix.scalar_multiply
+                     (Matrix.from_calculator_string !string2)
+                     f)
+        else if !matrix_operation = 9 then
+          output :=
+            match float_of_string_opt !string2 with
+            | None -> failwith "does not support operation"
+            | Some f ->
+                Matrix.to_calculator_string
+                  (Matrix.scalar_divide
+                     (Matrix.from_calculator_string !string1)
+                     f))
       else
         output :=
           string_of_float
@@ -189,72 +285,124 @@ let two_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "2"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "2"
-      else string2 := !string2 ^ "2";
-      W.set_text label (add_text label "2"))
+      if !matrix_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Transpose ");
+        matrix_operation := 2;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "2"
+        else string2 := !string2 ^ "2";
+        W.set_text label (add_text label "2")))
 
 let three_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "3"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "3"
-      else string2 := !string2 ^ "3";
-      W.set_text label (add_text label "3"))
+      if !matrix_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Determinant ");
+        matrix_operation := 3;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "3"
+        else string2 := !string2 ^ "3";
+        W.set_text label (add_text label "3")))
 
 let four_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "4"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "4"
-      else string2 := !string2 ^ "4";
-      W.set_text label (add_text label "4"))
+      if !matrix_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Row Reduce ");
+        matrix_operation := 4;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "4"
+        else string2 := !string2 ^ "4";
+        W.set_text label (add_text label "4")))
 
 let five_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "5"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "5"
-      else string2 := !string2 ^ "5";
-      W.set_text label (add_text label "5"))
+      if !matrix_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Rank ");
+        matrix_operation := 5;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "5"
+        else string2 := !string2 ^ "5";
+        W.set_text label (add_text label "5")))
 
 let six_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "6"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "6"
-      else string2 := !string2 ^ "6";
-      W.set_text label (add_text label "6"))
+      if !matrix_display then (
+        string1_done := true;
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Add ");
+        matrix_operation := 6;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "6"
+        else string2 := !string2 ^ "6";
+        W.set_text label (add_text label "6")))
 
 let seven_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "7"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "7"
-      else string2 := !string2 ^ "7";
-      W.set_text label (add_text label "7"))
+      if !matrix_display then (
+        string1_done := true;
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Subtract ");
+        matrix_operation := 7;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "7"
+        else string2 := !string2 ^ "7";
+        W.set_text label (add_text label "7")))
 
 let eight_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "8"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "8"
-      else string2 := !string2 ^ "8";
-      W.set_text label (add_text label "8"))
+      if !matrix_display then (
+        string1_done := true;
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Multiply ");
+        matrix_operation := 8;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "8"
+        else string2 := !string2 ^ "8";
+        W.set_text label (add_text label "8")))
 
 let nine_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "9"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "9"
-      else string2 := !string2 ^ "9";
-      W.set_text label (add_text label "9"))
+      if !matrix_display then (
+        string1_done := true;
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Divide ");
+        matrix_operation := 9;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "9"
+        else string2 := !string2 ^ "9";
+        W.set_text label (add_text label "9")))
 
 let zero_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -306,10 +454,12 @@ let matrix_button =
         "1: Identity Matrix\n\
          2: Transpose\n\
          3: Determinant\n\
-         4: Swap Rows\n\
-         5: Swap Columns\n\
-         6: Row Reduce\n\
-         7: Rank")
+         4: Row Reduce\n\
+         5: Rank\n\
+         6: Add\n\
+         7: Subtract\n\
+         8: Multiply\n\
+         9: Divide")
 
 let quit_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -322,13 +472,14 @@ let delete_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Delete"
     ~action:(fun _ ->
-      if !string1_done = false then
-        string1 := String.sub !string1 0 (String.length !string1 - 1)
-      else if !string2 = "" then (
-        string1_done := false;
-        operation := Basicops.add)
-      else string2 := String.sub !string2 0 (String.length !string2 - 1);
-      W.set_text label (delete_text label))
+      if String.length (W.get_text label) > 0 then (
+        if !string1_done = false then
+          string1 := String.sub !string1 0 (String.length !string1 - 1)
+        else if !string2 = "" then (
+          string1_done := false;
+          operation := Basicops.add)
+        else string2 := String.sub !string2 0 (String.length !string2 - 1);
+        W.set_text label (delete_text label)))
 
 let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
