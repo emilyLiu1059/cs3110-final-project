@@ -53,3 +53,6 @@ val to_string : float array array -> string
 (* [to_calculator_string a] converts a to a string that can be printed in the
    calculator UI *)
 val to_calculator_string : float array array -> string
+
+(* [from_calculator_string s] converts s to a 2D float array *)
+val from_calculator_string : string -> float array array

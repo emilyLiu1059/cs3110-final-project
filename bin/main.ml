@@ -105,6 +105,9 @@ let clear_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Clear"
     ~action:(fun _ ->
+      label_text := "";
+      matrix_display := false;
+      matrix_operation := 0;
       string1 := "";
       string1_done := false;
       operation := Basicops.add;
@@ -155,15 +158,15 @@ let enter_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Enter"
     ~action:(fun _ ->
-      if !matrix_operation > 0 then
+      if !matrix_operation > 0 then (
         if !matrix_operation = 1 then
           output :=
             Matrix.to_calculator_string
-              (Matrix.identity_matrix (int_of_string !string1))
-        else
-          output :=
-            string_of_float
-              (!operation (float_of_string !string1) (float_of_string !string2));
+              (Matrix.identity_matrix (int_of_string !string1)))
+      else
+        output :=
+          string_of_float
+            (!operation (float_of_string !string1) (float_of_string !string2));
       W.set_text label_output (add_text label_output !output))
 
 let one_button =

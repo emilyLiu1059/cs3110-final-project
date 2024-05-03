@@ -2,6 +2,14 @@ open OUnit2
 open Final_project
 
 let () =
+  print_endline
+    (Matrix.to_string (Matrix.from_calculator_string "[[1.,2.],[3.,4.]]"))
+
+let () =
+  print_endline
+    (Matrix.to_string (Matrix.from_calculator_string "[[5.,6.],[7.,8.]]"))
+
+let () =
   print_string "Adding 1.0 and 2.0: ";
   print_endline (string_of_float (Basicops.add 1. 2.))
 

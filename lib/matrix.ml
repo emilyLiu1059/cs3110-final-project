@@ -216,3 +216,27 @@ let to_calculator_string a =
     ^ "]"
   in
   "[" ^ String.concat "," (List.map string_of_row (Array.to_list a)) ^ "]"
+
+let split_string str delimiter =
+  let rec split_acc index start_indices =
+    try
+      let idx = String.index_from str index delimiter in
+      split_acc (idx + 1) (idx :: start_indices)
+    with Not_found ->
+      List.rev
+        (String.sub str (List.hd start_indices) (index - List.hd start_indices)
+        ::
+        (if List.length start_indices = 0 then []
+         else
+           split_acc (String.length str)
+             ((List.hd start_indices + 1) :: List.tl start_indices)))
+  in
+  split_acc 0 []
+
+let parse_row row_str =
+  let nums = split_string row_str ',' in
+  Array.of_list (List.map float_of_string nums)
+
+let from_calculator_string s =
+  let rows = split_string s ';' in
+  Array.of_list (List.map parse_row rows)
