@@ -49,3 +49,7 @@ val rank : float array array -> int
 
 (* [to_string a] converts a to a string *)
 val to_string : float array array -> string
+
+(* [to_calculator_string a] converts a to a string that can be printed in the
+   calculator UI *)
+val to_calculator_string : float array array -> string

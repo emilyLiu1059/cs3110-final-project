@@ -208,3 +208,11 @@ let to_string a =
     str_builder := !str_builder ^ "\n"
   done;
   !str_builder
+
+let to_calculator_string a =
+  let string_of_row row =
+    "["
+    ^ String.concat "," (Array.to_list (Array.map string_of_float row))
+    ^ "]"
+  in
+  "[" ^ String.concat "," (List.map string_of_row (Array.to_list a)) ^ "]"

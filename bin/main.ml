@@ -3,6 +3,9 @@ open Bogue
 module W = Widget
 module L = Layout
 
+let label_text = ref ""
+let matrix_display = ref false
+let matrix_operation = ref 0
 let string1 = ref ""
 let string1_done = ref false
 let operation = ref Basicops.add
@@ -24,8 +27,9 @@ let round_grey_box =
   let border = mk_border ~radius:25 thick_grey_line in
   create ~border ~background:(color_bg Draw.(opaque @@ find_color "white")) ()
 
-let label = W.label ~size:50 ~align:Min ""
-let label_output = W.label ~size:50 ~align:Max ""
+let label = W.label ~size:25 ~align:Min ""
+let label_output = W.label ~size:25 ~align:Max ""
+let text_display = W.text_display ""
 
 let add_text l str =
   let current_text = W.get_text l in
@@ -107,7 +111,8 @@ let clear_button =
       string2 := "";
       output := "";
       W.set_text label "";
-      W.set_text label_output "")
+      W.set_text label_output "";
+      W.set_text text_display "")
 
 let add_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -150,9 +155,15 @@ let enter_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Enter"
     ~action:(fun _ ->
-      output :=
-        string_of_float
-          (!operation (float_of_string !string1) (float_of_string !string2));
+      if !matrix_operation > 0 then
+        if !matrix_operation = 1 then
+          output :=
+            Matrix.to_calculator_string
+              (Matrix.identity_matrix (int_of_string !string1))
+        else
+          output :=
+            string_of_float
+              (!operation (float_of_string !string1) (float_of_string !string2));
       W.set_text label_output (add_text label_output !output))
 
 let one_button =
@@ -160,9 +171,15 @@ let one_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "1"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "1"
-      else string2 := !string2 ^ "1";
-      W.set_text label (add_text label "1"))
+      if !matrix_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Identity ");
+        matrix_operation := 1;
+        matrix_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "1"
+        else string2 := !string2 ^ "1";
+        W.set_text label (add_text label "1")))
 
 let two_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -277,6 +294,19 @@ let matrix_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Matrix"
+    ~action:(fun _ ->
+      label_text := W.get_text label;
+      matrix_display := true;
+      W.set_text label "";
+      W.set_text label_output "";
+      W.set_text text_display
+        "1: Identity Matrix\n\
+         2: Transpose\n\
+         3: Determinant\n\
+         4: Swap Rows\n\
+         5: Swap Columns\n\
+         6: Row Reduce\n\
+         7: Rank")
 
 let quit_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -573,6 +603,10 @@ let label_output_layout =
          (Style.of_bg (Style.color_bg Draw.(opaque @@ find_color "white"))))
     ~draggable:false ~keyboard_focus:true label_output
 
+let text_display_layout =
+  L.resident ~x:30 ~y:30 ~w:460 ~h:260 ~draggable:false ~keyboard_focus:true
+    text_display
+
 let example4 () =
   let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
@@ -618,6 +652,7 @@ let example4 () =
         poly_button_layout;
         label_layout;
         label_output_layout;
+        text_display_layout;
       ]
   in
   L.set_background layout (Some (L.color_bg Draw.(opaque @@ find_color "grey")));

@@ -149,6 +149,14 @@ let () =
   print_int (Matrix.rank (Matrix.identity_matrix 3));
   print_endline ""
 
+let () =
+  print_endline "Calculator string of matrix A: ";
+  print_endline (Matrix.to_calculator_string matrix_a)
+
+let () =
+  print_endline "Calculator string of matrix B: ";
+  print_endline (Matrix.to_calculator_string matrix_b)
+
 let () = print_endline ""
 
 let () =
@@ -449,6 +457,14 @@ let tests =
          ("Rank of matrix B" >:: fun _ -> assert_equal (Matrix.rank matrix_b) 2);
          ( "Rank of identity matrix 3" >:: fun _ ->
            assert_equal (Matrix.rank (Matrix.identity_matrix 3)) 3 );
+         ( "Calculator string of matrix A" >:: fun _ ->
+           assert_equal
+             (Matrix.to_calculator_string matrix_a)
+             "[[1.,2.],[3.,4.]]" );
+         ( "Calculator string of matrix B" >:: fun _ ->
+           assert_equal
+             (Matrix.to_calculator_string matrix_a)
+             "[[5.,6.],[7.,8.]]" );
          ("sin45" >:: fun _ -> assert_equal (Trig.sin 45.) 0.707106781186547462);
          ("sin30" >:: fun _ -> assert_equal (Trig.sin 30.) 0.499999999999999944);
          ("sin60" >:: fun _ -> assert_equal (Trig.sin 60.) 0.866025403784438486);
