@@ -5,14 +5,25 @@ module L = Layout
 
 let label_text = ref ""
 let matrix_display = ref false
+let stats_display = ref false
 let trig_display = ref false
 let matrix_operation = ref 0
+let stats_operation = ref 0
 let trig_operation = ref 0
 let string1 = ref ""
 let string1_done = ref false
 let operation = ref Basicops.add
 let string2 = ref ""
 let output = ref ""
+
+let string_to_float_list s =
+  let clean_str = String.trim s in
+  let stripped = String.sub clean_str 1 (String.length clean_str - 2) in
+  let items = String.split_on_char ',' stripped in
+  List.map String.trim items
+  |> List.filter_map (fun item ->
+         try Some (float_of_string item)
+         with Failure _ -> None (* Optionally log the error here *))
 
 let thick_grey_line =
   Style.mk_line ~color:Draw.(opaque grey) ~width:3 ~style:Solid ()
@@ -127,7 +138,9 @@ let clear_button =
     ~action:(fun _ ->
       label_text := "";
       matrix_display := false;
+      stats_display := false;
       matrix_operation := 0;
+      stats_operation := 0;
       string1 := "";
       string1_done := false;
       operation := Basicops.add;
@@ -179,88 +192,47 @@ let enter_button =
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Enter"
     ~action:(fun _ ->
       if !matrix_operation > 0 then (
-        if !matrix_operation = 1 then
-          output :=
-            Matrix.to_calculator_string
-              (Matrix.identity_matrix (int_of_string !string1))
-        else if !matrix_operation = 2 then
-          output :=
-            Matrix.to_calculator_string
-              (Matrix.transpose (Matrix.from_calculator_string !string1))
-        else if !matrix_operation = 3 then
-          output :=
-            string_of_float
-              (Matrix.determinant (Matrix.from_calculator_string !string1))
-        else if !matrix_operation = 4 then
-          output :=
-            Matrix.to_calculator_string
-              (Matrix.row_reduce (Matrix.from_calculator_string !string1))
-        else if !matrix_operation = 5 then
-          output :=
-            string_of_int (Matrix.rank (Matrix.from_calculator_string !string1))
-        else if !matrix_operation = 6 then
-          output :=
-            match float_of_string_opt !string1 with
-            | None -> (
-                match float_of_string_opt !string2 with
-                | None ->
-                    Matrix.to_calculator_string
-                      (Matrix.add
-                         (Matrix.from_calculator_string !string1)
-                         (Matrix.from_calculator_string !string2))
-                | Some f ->
-                    Matrix.to_calculator_string
-                      (Matrix.scalar_add
-                         (Matrix.from_calculator_string !string1)
-                         f))
-            | Some f ->
-                Matrix.to_calculator_string
-                  (Matrix.scalar_add (Matrix.from_calculator_string !string2) f)
-        else if !matrix_operation = 7 then
-          output :=
-            match float_of_string_opt !string2 with
-            | None -> (
-                match float_of_string_opt !string1 with
-                | None ->
-                    Matrix.to_calculator_string
-                      (Matrix.subtract
-                         (Matrix.from_calculator_string !string1)
-                         (Matrix.from_calculator_string !string2))
-                | Some _ -> failwith "does not support operation")
-            | Some f ->
-                Matrix.to_calculator_string
-                  (Matrix.scalar_subtract
-                     (Matrix.from_calculator_string !string1)
-                     f)
-        else if !matrix_operation = 8 then
-          output :=
-            match float_of_string_opt !string1 with
-            | None -> (
-                match float_of_string_opt !string2 with
-                | None ->
-                    Matrix.to_calculator_string
-                      (Matrix.multiply
-                         (Matrix.from_calculator_string !string1)
-                         (Matrix.from_calculator_string !string2))
-                | Some f ->
-                    Matrix.to_calculator_string
-                      (Matrix.scalar_multiply
-                         (Matrix.from_calculator_string !string1)
-                         f))
-            | Some f ->
-                Matrix.to_calculator_string
-                  (Matrix.scalar_multiply
-                     (Matrix.from_calculator_string !string2)
-                     f)
-        else if !matrix_operation = 9 then
-          output :=
-            match float_of_string_opt !string2 with
-            | None -> failwith "does not support operation"
-            | Some f ->
-                Matrix.to_calculator_string
-                  (Matrix.scalar_divide
-                     (Matrix.from_calculator_string !string1)
-                     f))
+        (* Existing matrix operation logic *)
+        (output :=
+           match !matrix_operation with
+           | 1 ->
+               Matrix.to_calculator_string
+                 (Matrix.identity_matrix (int_of_string !string1))
+           | 2 ->
+               Matrix.to_calculator_string
+                 (Matrix.transpose (Matrix.from_calculator_string !string1))
+           | 3 ->
+               string_of_float
+                 (Matrix.determinant (Matrix.from_calculator_string !string1))
+           | 4 ->
+               Matrix.to_calculator_string
+                 (Matrix.row_reduce (Matrix.from_calculator_string !string1))
+           | 5 ->
+               string_of_int
+                 (Matrix.rank (Matrix.from_calculator_string !string1))
+           | 6 ->
+               Matrix.to_calculator_string
+                 (Matrix.add
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 7 ->
+               Matrix.to_calculator_string
+                 (Matrix.subtract
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 8 ->
+               Matrix.to_calculator_string
+                 (Matrix.multiply
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 9 ->
+               Matrix.to_calculator_string
+                 (Matrix.scalar_divide
+                    (Matrix.from_calculator_string !string1)
+                    (float_of_string !string2))
+           | _ -> failwith "Unsupported matrix operation");
+        matrix_display := false;
+        W.set_text label_output (add_text label_output !output))
       else if !trig_operation > 0 then (
         if !trig_operation = 1 then
           output := string_of_float (Trig.sin (float_of_string !string1))
@@ -280,11 +252,30 @@ let enter_button =
           output := string_of_float (Trig.arccos (float_of_string !string1))
         else if !trig_operation = 9 then
           output := string_of_float (Trig.arctan (float_of_string !string1)))
-      else
+      else if !stats_operation > 0 then (
+        (* Use the improved string_to_float_list for stats operations *)
+        let data = string_to_float_list !string1 in
+        (output :=
+           match !stats_operation with
+           | 1 -> string_of_float (Probstats.mean data)
+           | 2 -> string_of_float (Probstats.median data)
+           | 3 -> string_of_float (Probstats.variance data)
+           | 4 -> string_of_float (Probstats.sd data)
+           | 5 -> string_of_float (Probstats.range data)
+           | 6 -> string_of_float (Probstats.mode data)
+           | 7 -> string_of_float (Probstats.quantile 0.5 data)
+           | 8 -> string_of_float (Probstats.skewness data)
+           | 9 ->
+               let data2 = string_to_float_list !string2 in
+               string_of_float (Probstats.correlation data data2)
+           | _ -> failwith "Unsupported stats operation");
+        stats_display := false;
+        W.set_text label_output (add_text label_output !output))
+      else (
         output :=
           string_of_float
             (!operation (float_of_string !string1) (float_of_string !string2));
-      W.set_text label_output (add_text label_output !output))
+        W.set_text label_output (add_text label_output !output)))
 
 let one_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -296,6 +287,11 @@ let one_button =
         W.set_text label (!label_text ^ " Identity ");
         matrix_operation := 1;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Mean ");
+        stats_operation := 1;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Sin ");
@@ -316,6 +312,11 @@ let two_button =
         W.set_text label (!label_text ^ " Transpose ");
         matrix_operation := 2;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Median ");
+        stats_operation := 2;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Cos ");
@@ -336,6 +337,11 @@ let three_button =
         W.set_text label (!label_text ^ " Determinant ");
         matrix_operation := 3;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Variance ");
+        stats_operation := 3;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Tan ");
@@ -356,6 +362,11 @@ let four_button =
         W.set_text label (!label_text ^ " Row Reduce ");
         matrix_operation := 4;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Standard Deviation ");
+        stats_operation := 4;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Csc ");
@@ -376,6 +387,11 @@ let five_button =
         W.set_text label (!label_text ^ " Rank ");
         matrix_operation := 5;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Range ");
+        stats_operation := 5;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Sec ");
@@ -397,6 +413,11 @@ let six_button =
         W.set_text label (!label_text ^ " Add ");
         matrix_operation := 6;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Mode ");
+        stats_operation := 6;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Cot ");
@@ -418,6 +439,11 @@ let seven_button =
         W.set_text label (!label_text ^ " Subtract ");
         matrix_operation := 7;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Quantile ");
+        stats_operation := 7;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " ArcSin ");
@@ -439,6 +465,11 @@ let eight_button =
         W.set_text label (!label_text ^ " Multiply ");
         matrix_operation := 8;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Skewness ");
+        stats_operation := 8;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " ArcCos ");
@@ -460,6 +491,11 @@ let nine_button =
         W.set_text label (!label_text ^ " Divide ");
         matrix_operation := 9;
         matrix_display := false)
+      else if !stats_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Correlation ");
+        stats_operation := 9;
+        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " ArcTan ");
@@ -501,6 +537,21 @@ let stats_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Stats"
+    ~action:(fun _ ->
+      label_text := W.get_text label;
+      stats_display := true;
+      W.set_text label "";
+      W.set_text label_output "";
+      W.set_text text_display
+        "1: Mean\n\
+         2: Median\n\
+         3: Variance\n\
+         4: Standard Deviation\n\
+         5: Range\n\
+         6: Mode\n\
+         7: Quantile\n\
+         8: Skewness\n\
+         9: Correlation")
 
 let e_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -538,14 +589,31 @@ let delete_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Delete"
     ~action:(fun _ ->
-      if String.length (W.get_text label) > 0 then (
-        if !string1_done = false then
-          string1 := String.sub !string1 0 (String.length !string1 - 1)
-        else if !string2 = "" then (
+      if String.length (W.get_text label) > 0 then
+        if !matrix_display || !stats_display then (
+          (* Resetting the specific displays and operations when in matrix or
+             stats mode *)
+          matrix_display := false;
+          stats_display := false;
+          matrix_operation := 0;
+          stats_operation := 0;
+          string1 := "";
           string1_done := false;
-          operation := Basicops.add)
-        else string2 := String.sub !string2 0 (String.length !string2 - 1);
-        W.set_text label (delete_text label)))
+          operation := Basicops.add;
+          string2 := "";
+          output := "";
+          W.set_text label "";
+          W.set_text label_output "";
+          W.set_text text_display "")
+        else (
+          (* Normal delete operation when not in specific modes *)
+          if !string1_done = false then
+            string1 := String.sub !string1 0 (String.length !string1 - 1)
+          else if !string2 = "" then (
+            string1_done := false;
+            operation := Basicops.add)
+          else string2 := String.sub !string2 0 (String.length !string2 - 1);
+          W.set_text label (delete_text label)))
 
 let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
