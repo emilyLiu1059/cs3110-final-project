@@ -5,7 +5,9 @@ module L = Layout
 
 let label_text = ref ""
 let matrix_display = ref false
+let trig_display = ref false
 let matrix_operation = ref 0
+let trig_operation = ref 0
 let string1 = ref ""
 let string1_done = ref false
 let operation = ref Basicops.add
@@ -259,6 +261,25 @@ let enter_button =
                   (Matrix.scalar_divide
                      (Matrix.from_calculator_string !string1)
                      f))
+      else if !trig_operation > 0 then (
+        if !trig_operation = 1 then
+          output := string_of_float (Trig.sin (float_of_string !string1))
+        else if !trig_operation = 2 then
+          output := string_of_float (Trig.cos (float_of_string !string1))
+        else if !trig_operation = 3 then
+          output := string_of_float (Trig.tan (float_of_string !string1))
+        else if !trig_operation = 4 then
+          output := string_of_float (Trig.csc (float_of_string !string1))
+        else if !trig_operation = 5 then
+          output := string_of_float (Trig.sec (float_of_string !string1))
+        else if !trig_operation = 6 then
+          output := string_of_float (Trig.cot (float_of_string !string1))
+        else if !trig_operation = 7 then
+          output := string_of_float (Trig.arcsin (float_of_string !string1))
+        else if !trig_operation = 8 then
+          output := string_of_float (Trig.arccos (float_of_string !string1))
+        else if !trig_operation = 9 then
+          output := string_of_float (Trig.arctan (float_of_string !string1)))
       else
         output :=
           string_of_float
@@ -275,6 +296,11 @@ let one_button =
         W.set_text label (!label_text ^ " Identity ");
         matrix_operation := 1;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Sin ");
+        trig_operation := 1;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "1"
         else string2 := !string2 ^ "1";
@@ -290,6 +316,11 @@ let two_button =
         W.set_text label (!label_text ^ " Transpose ");
         matrix_operation := 2;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Cos ");
+        trig_operation := 2;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "2"
         else string2 := !string2 ^ "2";
@@ -305,6 +336,11 @@ let three_button =
         W.set_text label (!label_text ^ " Determinant ");
         matrix_operation := 3;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Tan ");
+        trig_operation := 3;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "3"
         else string2 := !string2 ^ "3";
@@ -320,6 +356,11 @@ let four_button =
         W.set_text label (!label_text ^ " Row Reduce ");
         matrix_operation := 4;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Csc ");
+        trig_operation := 4;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "4"
         else string2 := !string2 ^ "4";
@@ -335,6 +376,11 @@ let five_button =
         W.set_text label (!label_text ^ " Rank ");
         matrix_operation := 5;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Sec ");
+        trig_operation := 5;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "5"
         else string2 := !string2 ^ "5";
@@ -351,6 +397,11 @@ let six_button =
         W.set_text label (!label_text ^ " Add ");
         matrix_operation := 6;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Cot ");
+        trig_operation := 6;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "6"
         else string2 := !string2 ^ "6";
@@ -367,6 +418,11 @@ let seven_button =
         W.set_text label (!label_text ^ " Subtract ");
         matrix_operation := 7;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " ArcSin ");
+        trig_operation := 7;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "7"
         else string2 := !string2 ^ "7";
@@ -383,6 +439,11 @@ let eight_button =
         W.set_text label (!label_text ^ " Multiply ");
         matrix_operation := 8;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " ArcCos ");
+        trig_operation := 8;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "8"
         else string2 := !string2 ^ "8";
@@ -399,6 +460,11 @@ let nine_button =
         W.set_text label (!label_text ^ " Divide ");
         matrix_operation := 9;
         matrix_display := false)
+      else if !trig_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " ArcTan ");
+        trig_operation := 9;
+        trig_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "9"
         else string2 := !string2 ^ "9";
@@ -485,6 +551,21 @@ let trig_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Trig"
+    ~action:(fun _ ->
+      label_text := W.get_text label;
+      trig_display := true;
+      W.set_text label "";
+      W.set_text label_output "";
+      W.set_text text_display
+        "1: Sin\n\
+         2: Cos\n\
+         3: Tan\n\
+         4: Csc\n\
+         5: Sec\n\
+         6: Cot\n\
+         7: ArcSin\n\
+         8: ArcCos\n\
+         9: ArcTan")
 
 let poly_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
