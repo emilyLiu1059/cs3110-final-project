@@ -1,4 +1,5 @@
 let deg_to_rad x = x *. (Float.pi /. 180.0)
+let rad_to_deg x = x *. (180.0 /. Float.pi)
 
 let rec factorial x acc =
   if x = 0.0 then acc else factorial (x -. 1.0) (acc *. x)
@@ -34,34 +35,8 @@ let csc x = 1. /. sin x
 let sec x = 1. /. cos x
 let cot x = 1. /. tan x
 
-let arcsin x =
-  x
-  +. ((x ** 3.) /. 6.)
-  +. ((x ** 5.) *. 3. /. 40.)
-  +. ((x ** 7.) *. 5. /. 112.)
-  +. ((x ** 9.) *. 35. /. 1152.)
-
-(* let arcsin x = let rec aux n acc = if n >= 10 then acc else let term = if n
-   mod 2 = 0 then 0.0 else (-1.0 ** float_of_int ((n - 1) / 2)) *. (x **
-   float_of_int ((2 * n) - 1)) /. float_of_int ((2 * n) - 1) in aux (n + 1) (acc
-   +. term) in aux 0 x *)
-(* let arcsin x = let max_iterations = 20 in let rec aux n acc = if n >=
-   max_iterations then acc else let term = 1.0 /. float_of_int ((2 * n) + 1) *.
-   (x ** float_of_int ((2 * n) + 1)) in let sign = if n mod 2 = 0 then 1.0 else
-   -1.0 in aux (n + 1) (acc +. (sign *. term)) in aux 0 x *)
-
-let arccos x =
-  if x = 1. then 0.
-  else
-    (Float.pi /. 2.)
-    -. (x
-       +. ((x ** 3.) /. 6.)
-       +. ((x ** 5.) *. 3. /. 40.)
-       +. ((x ** 7.) *. 5. /. 112.)
-       +. ((x ** 9.) *. 35. /. 1152.))
-
 let arctan x =
-  let max_iterations = 20 in
+  let max_iterations = 100 in
   let rec aux n acc =
     if n >= max_iterations then acc
     else
@@ -72,4 +47,10 @@ let arctan x =
       in
       aux (n + 1) (acc +. term)
   in
-  aux 0 0.0
+  rad_to_deg (aux 0 0.0)
+
+let arcsin_helper x = x /. Float.sqrt (1. -. (x *. x))
+let arcsin x = if x = 1. then 90. else arctan (arcsin_helper x)
+
+let arccos x =
+  if x = 1. then 0. else rad_to_deg ((Float.pi /. 2.) -. deg_to_rad (arcsin x))

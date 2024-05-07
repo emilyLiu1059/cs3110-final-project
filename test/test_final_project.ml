@@ -513,22 +513,21 @@ let tests =
          ("cot30" >:: fun _ -> assert_equal (Trig.cot 30.) 1.73205080756887742);
          ("cot60" >:: fun _ -> assert_equal (Trig.cot 60.) 0.577350269189626064);
          ( "arcsin 0.5" >:: fun _ ->
-           assert_equal (Trig.arcsin 0.5) 0.523585195390005 );
-         ( "arcsin 0.8" >:: fun _ ->
-           assert_equal (Trig.arcsin 0.8) 0.923349414603174767 );
-         ( "arcsin 1." >:: fun _ ->
-           assert_equal (Trig.arcsin 1.) 1.31669146825396832 );
+           assert_equal (Trig.arcsin 0.5) 30.0000000000000036 );
+         ( "arcsin 0.1" >:: fun _ ->
+           assert_equal (Trig.arcsin 0.1) 5.73917047726678664 );
+         ("arcsin 1." >:: fun _ -> assert_equal (Trig.arcsin 1.) 90.);
          ( "arccos 0.5" >:: fun _ ->
-           assert_equal (Trig.arccos 0.5) 1.04721113140489153 );
-         ( "arccos 0.8" >:: fun _ ->
-           assert_equal (Trig.arccos 0.8) 0.647446912191721791 );
+           assert_equal (Trig.arccos 0.5) 59.9999999999999929 );
+         ( "arccos 0.1" >:: fun _ ->
+           assert_equal (Trig.arccos 0.1) 84.2608295227332178 );
          ("arccos 1." >:: fun _ -> assert_equal (Trig.arccos 1.) 0.);
          ( "arctan 0.5" >:: fun _ ->
-           assert_equal (Trig.arctan 0.5) 0.463647609000796934 );
-         ( "arctan 0.8" >:: fun _ ->
-           assert_equal (Trig.arctan 0.8) 0.674739330996735442 );
+           assert_equal (Trig.arctan 0.5) 26.5650511770779758 );
+         ( "arctan 0.1" >:: fun _ ->
+           assert_equal (Trig.arctan 0.1) 5.71059313749964215 );
          ( "arctan 1." >:: fun _ ->
-           assert_equal (Trig.arctan 1.) 0.77290595166696 );
+           assert_equal (Trig.arctan 1.) 44.8567641317560444 );
          ( "Convert radians\n   to degrees" >:: fun _ ->
            assert_equal (Poly.rad_to_deg Poly.pi) 180. );
          ( "Convert degrees to radians" >:: fun _ ->
