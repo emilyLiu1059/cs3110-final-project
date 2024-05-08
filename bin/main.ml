@@ -265,9 +265,6 @@ let enter_button =
            | 6 -> string_of_float (Probstats.mode data)
            | 7 -> string_of_float (Probstats.quantile 0.5 data)
            | 8 -> string_of_float (Probstats.skewness data)
-           | 9 ->
-               let data2 = string_to_float_list !string2 in
-               string_of_float (Probstats.correlation data data2)
            | _ -> failwith "Unsupported stats operation");
         stats_display := false;
         W.set_text label_output (add_text label_output !output))
@@ -491,11 +488,6 @@ let nine_button =
         W.set_text label (!label_text ^ " Divide ");
         matrix_operation := 9;
         matrix_display := false)
-      else if !stats_display then (
-        W.set_text text_display "";
-        W.set_text label (!label_text ^ " Correlation ");
-        stats_operation := 9;
-        stats_display := false)
       else if !trig_display then (
         W.set_text text_display "";
         W.set_text label (!label_text ^ " ArcTan ");
@@ -550,8 +542,7 @@ let stats_button =
          5: Range\n\
          6: Mode\n\
          7: Quantile\n\
-         8: Skewness\n\
-         9: Correlation")
+         8: Skewness")
 
 let e_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
