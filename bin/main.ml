@@ -274,24 +274,22 @@ let enter_button =
         matrix_display := false;
         W.set_text label_output (add_text label_output !output))
       else if !trig_operation > 0 then (
-        if !trig_operation = 1 then
-          output := string_of_float (Trig.sin (float_of_string !string1))
-        else if !trig_operation = 2 then
-          output := string_of_float (Trig.cos (float_of_string !string1))
-        else if !trig_operation = 3 then
-          output := string_of_float (Trig.tan (float_of_string !string1))
-        else if !trig_operation = 4 then
-          output := string_of_float (Trig.csc (float_of_string !string1))
-        else if !trig_operation = 5 then
-          output := string_of_float (Trig.sec (float_of_string !string1))
-        else if !trig_operation = 6 then
-          output := string_of_float (Trig.cot (float_of_string !string1))
-        else if !trig_operation = 7 then
-          output := string_of_float (Trig.arcsin (float_of_string !string1))
-        else if !trig_operation = 8 then
-          output := string_of_float (Trig.arccos (float_of_string !string1))
-        else if !trig_operation = 9 then
-          output := string_of_float (Trig.arctan (float_of_string !string1)))
+        (match !trig_operation with
+        | 1 -> output := string_of_float (Trig.sin (float_of_string !string1))
+        | 2 -> output := string_of_float (Trig.cos (float_of_string !string1))
+        | 3 -> output := string_of_float (Trig.tan (float_of_string !string1))
+        | 4 -> output := string_of_float (Trig.csc (float_of_string !string1))
+        | 5 -> output := string_of_float (Trig.sec (float_of_string !string1))
+        | 6 -> output := string_of_float (Trig.cot (float_of_string !string1))
+        | 7 ->
+            output := string_of_float (Trig.arcsin (float_of_string !string1))
+        | 8 ->
+            output := string_of_float (Trig.arccos (float_of_string !string1))
+        | 9 ->
+            output := string_of_float (Trig.arctan (float_of_string !string1))
+        | _ -> failwith "Unsupported trig operation");
+        trig_display := false;
+        W.set_text label_output (add_text label_output !output))
       else if !stats_operation > 0 then (
         (* Use the improved string_to_float_list for stats operations *)
         let data = string_to_float_list !string1 in
