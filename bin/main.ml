@@ -7,9 +7,11 @@ let label_text = ref ""
 let matrix_display = ref false
 let stats_display = ref false
 let trig_display = ref false
+let poly_display = ref false
 let matrix_operation = ref 0
 let stats_operation = ref 0
 let trig_operation = ref 0
+let poly_operation = ref 0
 let string1 = ref ""
 let string1_done = ref false
 let operation = ref Basicops.add
@@ -57,9 +59,9 @@ let pi =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "π"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "π"
-      else string2 := !string2 ^ "π";
-      W.set_text label (add_text label "π"))
+      if !string1_done = false then string1 := !string1 ^ "3.141592653"
+      else string2 := !string2 ^ "3.141592653";
+      W.set_text label (add_text label "3.141592653"))
 
 let comma =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -233,6 +235,44 @@ let enter_button =
            | _ -> failwith "Unsupported matrix operation");
         matrix_display := false;
         W.set_text label_output (add_text label_output !output))
+      else if !poly_operation > 0 then (
+        (* Existing poly operation logic *)
+        (output :=
+           match !poly_operation with
+           | 1 -> string_of_float (Poly.rad_to_deg (float_of_string !string1))
+           | 2 -> string_of_float (Poly.deg_to_rad (float_of_string !string1))
+           | 3 ->
+               string_of_float
+                 (Matrix.determinant (Matrix.from_calculator_string !string1))
+           | 4 ->
+               Matrix.to_calculator_string
+                 (Matrix.row_reduce (Matrix.from_calculator_string !string1))
+           | 5 ->
+               string_of_int
+                 (Matrix.rank (Matrix.from_calculator_string !string1))
+           | 6 ->
+               Matrix.to_calculator_string
+                 (Matrix.add
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 7 ->
+               Matrix.to_calculator_string
+                 (Matrix.subtract
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 8 ->
+               Matrix.to_calculator_string
+                 (Matrix.multiply
+                    (Matrix.from_calculator_string !string1)
+                    (Matrix.from_calculator_string !string2))
+           | 9 ->
+               Matrix.to_calculator_string
+                 (Matrix.scalar_divide
+                    (Matrix.from_calculator_string !string1)
+                    (float_of_string !string2))
+           | _ -> failwith "Unsupported matrix operation");
+        matrix_display := false;
+        W.set_text label_output (add_text label_output !output))
       else if !trig_operation > 0 then (
         if !trig_operation = 1 then
           output := string_of_float (Trig.sin (float_of_string !string1))
@@ -294,6 +334,11 @@ let one_button =
         W.set_text label (!label_text ^ " Sin ");
         trig_operation := 1;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Radian to Degree ");
+        poly_operation := 1;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "1"
         else string2 := !string2 ^ "1";
@@ -319,6 +364,11 @@ let two_button =
         W.set_text label (!label_text ^ " Cos ");
         trig_operation := 2;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Degree to Radian ");
+        poly_operation := 2;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "2"
         else string2 := !string2 ^ "2";
@@ -344,6 +394,11 @@ let three_button =
         W.set_text label (!label_text ^ " Tan ");
         trig_operation := 3;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Eval ");
+        poly_operation := 3;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "3"
         else string2 := !string2 ^ "3";
@@ -369,6 +424,11 @@ let four_button =
         W.set_text label (!label_text ^ " Csc ");
         trig_operation := 4;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Derivative ");
+        poly_operation := 4;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "4"
         else string2 := !string2 ^ "4";
@@ -394,6 +454,11 @@ let five_button =
         W.set_text label (!label_text ^ " Sec ");
         trig_operation := 5;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Integrate ");
+        poly_operation := 5;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "5"
         else string2 := !string2 ^ "5";
@@ -420,6 +485,11 @@ let six_button =
         W.set_text label (!label_text ^ " Cot ");
         trig_operation := 6;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Add ");
+        poly_operation := 6;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "6"
         else string2 := !string2 ^ "6";
@@ -446,6 +516,11 @@ let seven_button =
         W.set_text label (!label_text ^ " ArcSin ");
         trig_operation := 7;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Subtract ");
+        poly_operation := 7;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "7"
         else string2 := !string2 ^ "7";
@@ -472,6 +547,11 @@ let eight_button =
         W.set_text label (!label_text ^ " ArcCos ");
         trig_operation := 8;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Multiply ");
+        poly_operation := 8;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "8"
         else string2 := !string2 ^ "8";
@@ -493,6 +573,11 @@ let nine_button =
         W.set_text label (!label_text ^ " ArcTan ");
         trig_operation := 9;
         trig_display := false)
+      else if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Divide ");
+        poly_operation := 9;
+        poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "9"
         else string2 := !string2 ^ "9";
@@ -503,18 +588,30 @@ let zero_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "0"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "0"
-      else string2 := !string2 ^ "0";
-      W.set_text label (add_text label "0"))
+      if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Greatest Common Divisor ");
+        poly_operation := 0;
+        poly_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "0"
+        else string2 := !string2 ^ "0";
+        W.set_text label (add_text label "0")))
 
 let dot_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "."
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "."
-      else string2 := !string2 ^ ".";
-      W.set_text label (add_text label "."))
+      if !poly_display then (
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Compose ");
+        poly_operation := 11;
+        poly_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "."
+        else string2 := !string2 ^ ".";
+        W.set_text label (add_text label ".")))
 
 let negative_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -630,6 +727,23 @@ let poly_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Poly"
+    ~action:(fun _ ->
+      label_text := W.get_text label;
+      poly_display := true;
+      W.set_text label "";
+      W.set_text label_output "";
+      W.set_text text_display
+        "1: rad_to_deg\n\
+         2: deg_to_rad\n\
+         3: eval\n\
+         4: derivative\n\
+         5: integrate\n\
+         6: add\n\
+         7: subtract\n\
+         8: multiply\n\
+         9: divide\n\
+         0: gcd\n\
+         ,: compose")
 
 let pi_layout =
   L.resident ~x:30 ~y:610 ~w:40 ~h:40
