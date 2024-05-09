@@ -58,6 +58,13 @@ val string_of_float_list : float list -> string
 (** Converts a list of float numbers into a comma-separated string. Useful for
     debugging and logging. *)
 
+val string_of_tuple_float_list : float list * float list -> string
+(** Converts a tuple of flost list numbers into a single string indicating the
+    quotient and remainder*)
+
 val poly_to_string : float list -> string
 (** Converts a list of polynomial coefficients into a human-readable string
     representation of the polynomial. *)
+
+val float_list_of_string : string -> float list
+(** Converts a string to its float list represensation. *)

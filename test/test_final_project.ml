@@ -542,8 +542,7 @@ let tests =
            assert_equal (Poly.deri 2 [ 1.; -3.; 2. ]) [ 2. ] );
          (* Second derivative of 1 - 3x + 2x^2 is 4 *)
          ( "Integral of a polynomial with constant c=1" >:: fun _ ->
-           assert_equal (Poly.inte_once 1. [ 1.; -3.; 2. ]) [ 0.5; -3.; 2.; 1. ]
-         );
+           assert_equal (Poly.inte_once 1. [ 6.; 6.; 6. ]) [ 2.; 3.; 6.; 1. ] );
          (* Integral of 1 - 3x + 2x^2 dx *)
          ( "Add two polynomials" >:: fun _ ->
            assert_equal (Poly.add [ 1.; 3. ] [ 2.; -1.; 4. ]) [ 3.; 2.; 4. ] );

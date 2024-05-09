@@ -141,8 +141,10 @@ let clear_button =
       label_text := "";
       matrix_display := false;
       stats_display := false;
+      poly_display := false;
       matrix_operation := 0;
       stats_operation := 0;
+      poly_operation := 0;
       string1 := "";
       string1_done := false;
       operation := Basicops.add;
@@ -243,34 +245,52 @@ let enter_button =
            | 2 -> string_of_float (Poly.deg_to_rad (float_of_string !string1))
            | 3 ->
                string_of_float
-                 (Matrix.determinant (Matrix.from_calculator_string !string1))
+                 (Poly.eval (float_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | 4 ->
-               Matrix.to_calculator_string
-                 (Matrix.row_reduce (Matrix.from_calculator_string !string1))
+               Poly.string_of_float_list
+                 (Poly.deri_once (Poly.float_list_of_string !string1))
            | 5 ->
-               string_of_int
-                 (Matrix.rank (Matrix.from_calculator_string !string1))
+               Poly.string_of_float_list
+                 (Poly.inte_once (float_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | 6 ->
-               Matrix.to_calculator_string
-                 (Matrix.add
-                    (Matrix.from_calculator_string !string1)
-                    (Matrix.from_calculator_string !string2))
+               Poly.string_of_float_list
+                 (Poly.add
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | 7 ->
-               Matrix.to_calculator_string
-                 (Matrix.subtract
-                    (Matrix.from_calculator_string !string1)
-                    (Matrix.from_calculator_string !string2))
+               Poly.string_of_float_list
+                 (Poly.subtract
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | 8 ->
-               Matrix.to_calculator_string
-                 (Matrix.multiply
-                    (Matrix.from_calculator_string !string1)
-                    (Matrix.from_calculator_string !string2))
+               Poly.string_of_float_list
+                 (Poly.multiply
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | 9 ->
-               Matrix.to_calculator_string
-                 (Matrix.scalar_divide
-                    (Matrix.from_calculator_string !string1)
-                    (float_of_string !string2))
+               Poly.string_of_tuple_float_list
+                 (Poly.divide_polynomials
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
+           | 10 ->
+               Poly.string_of_float_list
+                 (Poly.gcd_polynomial
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
+           | 11 ->
+               Poly.string_of_float_list
+                 (Poly.compose_polynomials
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
+           | 12 ->
+               Poly.string_of_float_list
+                 (Poly.eval_at_points
+                    (Poly.float_list_of_string !string1)
+                    (Poly.float_list_of_string !string2))
            | _ -> failwith "Unsupported matrix operation");
+
         matrix_display := false;
         W.set_text label_output (add_text label_output !output))
       else if !trig_operation > 0 then (
@@ -393,6 +413,7 @@ let three_button =
         trig_operation := 3;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Eval ");
         poly_operation := 3;
@@ -453,6 +474,7 @@ let five_button =
         trig_operation := 5;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Integrate ");
         poly_operation := 5;
@@ -484,6 +506,7 @@ let six_button =
         trig_operation := 6;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Add ");
         poly_operation := 6;
@@ -515,6 +538,7 @@ let seven_button =
         trig_operation := 7;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Subtract ");
         poly_operation := 7;
@@ -546,6 +570,7 @@ let eight_button =
         trig_operation := 8;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Multiply ");
         poly_operation := 8;
@@ -572,6 +597,7 @@ let nine_button =
         trig_operation := 9;
         trig_display := false)
       else if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Divide ");
         poly_operation := 9;
@@ -587,9 +613,10 @@ let zero_button =
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "0"
     ~action:(fun _ ->
       if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Greatest Common Divisor ");
-        poly_operation := 0;
+        poly_operation := 10;
         poly_display := false)
       else (
         if !string1_done = false then string1 := !string1 ^ "0"
@@ -602,6 +629,7 @@ let dot_button =
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "."
     ~action:(fun _ ->
       if !poly_display then (
+        string1_done := true;
         W.set_text text_display "";
         W.set_text label (!label_text ^ " Compose ");
         poly_operation := 11;
@@ -616,9 +644,16 @@ let negative_button =
     ~bg_off:(Style.color_bg (Draw.opaque Draw.pale_grey))
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "-"
     ~action:(fun _ ->
-      if !string1_done = false then string1 := !string1 ^ "-"
-      else string2 := !string2 ^ "-";
-      W.set_text label (add_text label "-"))
+      if !poly_display then (
+        string1_done := true;
+        W.set_text text_display "";
+        W.set_text label (!label_text ^ " Eval at points ");
+        poly_operation := 12;
+        poly_display := false)
+      else (
+        if !string1_done = false then string1 := !string1 ^ "-"
+        else string2 := !string2 ^ "-";
+        W.set_text label (add_text label "-")))
 
 let stats_button =
   W.button ~kind:Trigger ~fg:(Draw.opaque Draw.black)
@@ -676,13 +711,15 @@ let delete_button =
     ~border_radius:10 ~border_color:(Draw.opaque Draw.grey) "Delete"
     ~action:(fun _ ->
       if String.length (W.get_text label) > 0 then
-        if !matrix_display || !stats_display then (
+        if !matrix_display || !stats_display || !poly_display then (
           (* Resetting the specific displays and operations when in matrix or
              stats mode *)
           matrix_display := false;
           stats_display := false;
+          poly_display := false;
           matrix_operation := 0;
           stats_operation := 0;
+          poly_operation := 0;
           string1 := "";
           string1_done := false;
           operation := Basicops.add;
@@ -741,7 +778,9 @@ let poly_button =
          8: multiply\n\
          9: divide\n\
          0: gcd\n\
-         ,: compose")
+         ,: compose\n\
+         -: eval_at_points\n\
+        \         ")
 
 let pi_layout =
   L.resident ~x:30 ~y:610 ~w:40 ~h:40

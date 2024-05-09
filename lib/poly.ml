@@ -24,7 +24,7 @@ let rec inte_once c = function
   | [] -> []
   | h :: [] -> [ h; c ]
   | h :: rest ->
-      let x = rest |> List.length |> float_of_int in
+      let x = (rest |> List.length |> float_of_int) +. 1. in
       (h /. x) :: inte_once c rest
 
 let rec add p1 p2 =
@@ -85,6 +85,10 @@ let degree p =
 let string_of_float_list lst =
   let string_list = List.map string_of_float lst in
   String.concat ", " string_list
+
+let string_of_tuple_float_list (e1, e2) =
+  "Quotient: " ^ string_of_float_list e1 ^ " Remainder: "
+  ^ string_of_float_list e2
 
 let poly_to_string p =
   let rec aux i = function
@@ -151,3 +155,10 @@ let rec subtract p1 p2 =
   | c1 :: p1', c2 :: p2' -> (c1 -. c2) :: subtract p1' p2'
 
 let eval_at_points poly points = List.map (fun x -> eval x poly) points
+
+let float_list_of_string str =
+  let strip s = String.trim s in
+  let elements =
+    String.sub str 1 (String.length str - 2) |> String.split_on_char ','
+  in
+  List.map (fun x -> float_of_string (strip x)) elements
