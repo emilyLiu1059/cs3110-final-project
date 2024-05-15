@@ -365,6 +365,83 @@ let () =
     "Convert polynomial [1.0; 0.0; -1.0; 0.0] to readable\n   string: ";
   print_endline (Poly.poly_to_string [ 1.0; 0.0; -1.0; 0.0 ])
 
+let () =
+  print_string "Calculate the mean of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline (Probstats.mean [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the median of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline (Probstats.median [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the variance of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline
+    (Probstats.variance [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the standard deviation of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline (Probstats.sd [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the 0.75 quantile of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline
+    (Probstats.quantile 0.75 [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the range of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline (Probstats.range [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the mode of [1.0; 2.0; 2.0; 3.0; 4.0]: ";
+  print_endline (Probstats.mode [ 1.0; 2.0; 2.0; 3.0; 4.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the skewness of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline
+    (Probstats.skewness [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string "Calculate the z-score of 3.0 in [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline
+    (Probstats.z_score 3.0 [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string
+    "Calculate the interquartile range of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline (Probstats.iqr [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string
+    "Calculate the coefficient of variation of [1.0; 2.0; 3.0; 4.0; 5.0]: ";
+  print_endline
+    (Probstats.coefficient_of_variation [ 1.0; 2.0; 3.0; 4.0; 5.0 ]
+    |> string_of_float)
+
+let () =
+  print_string
+    "Calculate the correlation of [1.0; 2.0; 3.0] and [4.0; 5.0; 6.0]: ";
+  print_endline
+    (Probstats.correlation [ 1.0; 2.0; 3.0 ] [ 4.0; 5.0; 6.0 ]
+    |> string_of_float)
+
+let () =
+  print_string
+    "Calculate the cumulative distribution function of 3.0 in [1.0; 2.0; 3.0; \
+     4.0; 5.0]: ";
+  print_endline
+    (Probstats.cdf 3.0 [ 1.0; 2.0; 3.0; 4.0; 5.0 ] |> string_of_float)
+
+let () =
+  print_string
+    "Calculate the linear regression of xs = [1.0; 2.0; 3.0] and ys = [2.0; \
+     4.0; 6.0]: ";
+  let slope, intercept =
+    Probstats.linear_regression [ 1.0; 2.0; 3.0 ] [ 2.0; 4.0; 6.0 ]
+  in
+  print_endline
+    ("slope: " ^ string_of_float slope ^ ", intercept: "
+   ^ string_of_float intercept)
+
 (* Define a function to check approximate equality of floats *)
 let approx_equal a b tolerance = abs_float (a -. b) < tolerance
 
@@ -573,6 +650,33 @@ let tests =
          ( "Convert polynomial to string" >:: fun _ ->
            assert_equal (Poly.poly_to_string [ 1.; -3.; 2. ]) "2. + -3.x + x^2"
          );
+         ( "Mean" >:: fun _ ->
+           assert_equal (Probstats.mean [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 3.0 );
+         ( "Median" >:: fun _ ->
+           assert_equal (Probstats.median [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 3.0 );
+         ( "Variance" >:: fun _ ->
+           assert_equal (Probstats.variance [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 2.0 );
+         ( "Standard Deviation" >:: fun _ ->
+           assert_equal (Probstats.sd [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) (sqrt 2.0) );
+         ( "Quantile" >:: fun _ ->
+           assert_equal
+             (Probstats.quantile 0.75 [ 1.0; 2.0; 3.0; 4.0; 5.0 ])
+             4.0 );
+         ( "Range" >:: fun _ ->
+           assert_equal (Probstats.range [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 4.0 );
+         ( "Mode" >:: fun _ ->
+           assert_equal (Probstats.mode [ 1.0; 2.0; 2.0; 3.0; 4.0 ]) 2.0 );
+         ( "Skewness" >:: fun _ ->
+           assert_equal (Probstats.skewness [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 0.0 );
+         ( "Z-Score" >:: fun _ ->
+           assert_equal (Probstats.z_score 3.0 [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 0.0
+         );
+         ( "Interquartile Range" >:: fun _ ->
+           assert_equal (Probstats.iqr [ 1.0; 2.0; 3.0; 4.0; 5.0 ]) 2.0 );
+         ( "Coefficient of Variation" >:: fun _ ->
+           assert_equal
+             (Probstats.coefficient_of_variation [ 1.0; 2.0; 3.0; 4.0; 5.0 ])
+             (sqrt 2.0 /. 3.0 *. 100.) );
        ]
 
 let _ = run_test_tt_main tests
