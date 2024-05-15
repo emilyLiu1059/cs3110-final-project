@@ -1,3 +1,6 @@
+(* @author Serena Zhang (syz8), Camille Yap (cy474), Emily Liu (eyl48), Anita
+   Hong (yh846), Ian Yang (yc823) *)
+
 open Final_project
 open Bogue
 module W = Widget
