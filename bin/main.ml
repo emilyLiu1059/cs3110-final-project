@@ -21,6 +21,7 @@ let operation = ref Basicops.add
 let string2 = ref ""
 let output = ref ""
 
+(* [string_to_float_list s] converts a string list into a float list *)
 let string_to_float_list s =
   let clean_str = String.trim s in
   let stripped = String.sub clean_str 1 (String.length clean_str - 2) in
@@ -49,10 +50,12 @@ let label = W.label ~size:25 ~align:Min ""
 let label_output = W.label ~size:25 ~align:Max ""
 let text_display = W.text_display ""
 
+(* [add_text l str] adds str to the label l *)
 let add_text l str =
   let current_text = W.get_text l in
   current_text ^ str
 
+(* [delete_text l str] deletes the last character of the label l *)
 let delete_text l =
   let current_text = W.get_text l in
   String.sub current_text 0 (String.length current_text - 1)
@@ -1055,6 +1058,7 @@ let text_display_layout =
   L.resident ~x:30 ~y:30 ~w:460 ~h:260 ~draggable:false ~keyboard_focus:true
     text_display
 
+(* [example4] creates the calculator interface and runs the thread *)
 let example4 () =
   let box = W.box ~w:500 ~h:560 ~style:round_blue_box () in
   let screen = W.box ~w:500 ~h:300 ~style:round_grey_box () in
