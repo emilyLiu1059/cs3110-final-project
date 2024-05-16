@@ -1,8 +1,48 @@
+commit f9b4db55e827999768e84662f54bb25e32bc6bcb
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Thu May 16 12:30:18 2024 -0400
+
+    Added Test Plan
+
+commit 8f1a1b8cf38545fd4dd9f59c395f607c8d15dbc3
+Author: Serena <syz8@cornell.edu>
+Date:   Thu May 16 03:57:40 2024 -0400
+
+    updated gitlog.txt, INSTALL.txt
+
+commit e0e7a98eb39f3b9e04785bfdab6e8a6bc4c98b03
+Merge: 86abea4 43144c5
+Author: Serena <syz8@cornell.edu>
+Date:   Thu May 16 03:56:01 2024 -0400
+
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+    merge branch
+
+commit 86abea4171a24506b8c0c269639dd2943f75f4cc
+Author: Serena <syz8@cornell.edu>
+Date:   Thu May 16 03:54:39 2024 -0400
+
+    updated gitlog.txt
+
+commit 43144c57c717b36c854bcd6fa50087c35fa7ddf5
+Merge: 3c8bfa4 441edf8
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Wed May 15 23:29:21 2024 -0400
+
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+    Install.txt
+
 commit 441edf8976ff3e45f684352a674e5b0d8f613e7a
 Author: Serena <syz8@cornell.edu>
 Date:   Wed May 15 23:28:52 2024 -0400
 
     added comments to main.ml
+
+commit 3c8bfa43cabb61a7659a33d1556520b46b0c0074
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Wed May 15 23:27:48 2024 -0400
+
+    Edited INSTALL.txt
 
 commit 11fde5f6cb81ba3c07ae9ebdf4305ea5cba88882
 Author: Anita Hong <yh846@cornell.edu>
