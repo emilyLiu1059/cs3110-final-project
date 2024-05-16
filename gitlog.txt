@@ -1,3 +1,346 @@
+commit 441edf8976ff3e45f684352a674e5b0d8f613e7a
+Author: Serena <syz8@cornell.edu>
+Date:   Wed May 15 23:28:52 2024 -0400
+
+    added comments to main.ml
+
+commit 11fde5f6cb81ba3c07ae9ebdf4305ea5cba88882
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Wed May 15 19:36:08 2024 -0400
+
+    Add test cases for all probstats operations
+
+commit 8af45158e4e97cd6bb562297e76e7bcb04531694
+Author: Serena <syz8@cornell.edu>
+Date:   Wed May 15 17:41:47 2024 -0400
+
+    added @author comment
+
+commit 13a165c1b6758aa351ad83ab6c1895f3f4023d74
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed May 8 21:47:42 2024 -0400
+
+    Implemented functions for module Polymonial in main.ml
+
+commit 7792fab2aa742b2ca9ffda3c8e92a8183b2384be
+Author: Serena <syz8@cornell.edu>
+Date:   Wed May 8 19:07:58 2024 -0400
+
+    fixed trig interface
+
+commit 51262ae574374f58d7b35d1d00045d184ceacba9
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed May 8 18:56:41 2024 -0400
+
+    Implemented menu and some functionality of poly
+
+commit 1999e61b7cf0a5be7973615ac3a7789c01d5495e
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Wed May 8 01:04:28 2024 -0400
+
+    Implement new interactive operations on stats module
+
+commit 93eb4e0834fb1d6db772f56d300b3717d7eac0cf
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Wed May 8 00:33:37 2024 -0400
+
+    Implement the stats interactive operations
+
+commit 2feb80a650268b51ff300fecaaf36df5b4941a21
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Mon May 6 15:50:52 2024 -0400
+
+    Implement Stats module UI
+
+commit 77b1d144eef5597dd84155c105c3d100f2084f2e
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Tue May 7 00:54:25 2024 -0400
+
+    Trig
+    
+    - Made arcsin and arccos  more accurate
+
+commit d4e713147f76a1144947f2344e10e8de3c7fb3e0
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon May 6 11:26:35 2024 -0400
+
+    Trig
+    
+    - Added implementation for the trig button
+    - Added trig menu
+    - Added trig.ml functionality to the calculator interface
+
+commit fc7c8be415033f0e37dfbf5e87112766389a44eb
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Sat May 4 21:16:58 2024 -0400
+
+    Finish test cases problems
+
+commit 134a49e42bafce54b9cfd98028f3893654115eb4
+Author: Serena <syz8@cornell.edu>
+Date:   Fri May 3 17:51:25 2024 -0400
+
+    finished Matrix UI
+    - implemented matrix functions to be usable on the calculator UI
+    - edited some buttons so that they work on the calculator
+
+commit c09f10a189f185d0091d4c201073a64ba49a1b07
+Author: Serena <syz8@cornell.edu>
+Date:   Fri May 3 15:45:39 2024 -0400
+
+    fixed enter_button for basicops
+
+commit c38cfb389914b34ddc454504b56fe67ece790042
+Author: Serena <syz8@cornell.edu>
+Date:   Fri May 3 15:24:48 2024 -0400
+
+    implemented Matrix UI
+    - made a new text_display for matrix UI
+    - wrote a new function to display a matrix as a string
+
+commit c3785b0605e5e46d3711870e05f42dfdd8bbcd25
+Author: Serena <syz8@cornell.edu>
+Date:   Thu May 2 20:47:28 2024 -0400
+
+    implemented more features in main
+    - allow for basicops operations when there are only two numbers
+    - implemented clear, delete, quit
+
+commit 86500135041ac538757e96d389b13874cc152c54
+Author: Serena <syz8@cornell.edu>
+Date:   Thu May 2 13:40:00 2024 -0400
+
+    edited size of label
+    - made text size bigger
+    - centered text to left
+    - added label_output
+
+commit 929079c1348cff0179a6da1e02cfab4bca9baef8
+Author: Emily <eyl48@cornell.edu>
+Date:   Wed May 1 18:28:07 2024 -0400
+
+    Allow text to be printed on screen of calculator
+    
+    - Add label
+    - Create actions for number, basicops, and misc. buttons to change label text
+
+commit de177ac3a079e0b076cdd268fa92bfef59e247cc
+Merge: 646609e 6308b5f
+Author: Emily <eyl48@cornell.edu>
+Date:   Wed May 1 18:25:01 2024 -0400
+
+    Add more functionality to main
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+
+commit 646609ef9144d34f5d41dcd7cf4010fa27c2b59b
+Author: Emily <eyl48@cornell.edu>
+Date:   Wed May 1 18:22:41 2024 -0400
+
+    Add action to button that causes text to appear on screen
+    
+    - Create label to represent text
+    - Add action to all number and basicops buttons
+
+commit 6308b5f4b5a7f0efd91d44efdb4f6f88746bdcc8
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Wed May 1 18:05:12 2024 -0400
+
+    Implemented files poly.ml, poly.mli, and write test cases for the newly implemented codes.
+
+commit 6d8895ea243ec8e85bae1ae9b01d7959a1b1a796
+Author: Emily <eyl48@cornell.edu>
+Date:   Fri Apr 26 23:16:51 2024 -0400
+
+    Finish basicops functions
+    
+    - Write corresponding test cases
+
+commit fc50c51ff501ea87cc083997f40e3f8c55216075
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Fri Apr 26 16:18:31 2024 -0400
+
+    Revised buttons
+
+commit 9714717944cc4222c51537f48a64798409876520
+Author: Serena <syz8@cornell.edu>
+Date:   Fri Apr 26 16:08:23 2024 -0400
+
+    made box shorter
+
+commit 662cb1a2573fd38c73845c5d3c57fcdf8f528db8
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Fri Apr 26 16:05:29 2024 -0400
+
+    Numbers
+    
+    - Made the buttons bigger
+    - Made the spaces between buttons wider
+
+commit 43d12f5281e613adc696d3db2f94469ff2ae67e0
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Fri Apr 26 15:43:02 2024 -0400
+
+    Change position of some buttons
+
+commit 14f8160cade77ac2ccea3bb48498462830a4c495
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Fri Apr 26 15:21:38 2024 -0400
+
+    Change name of some buttons
+
+commit 57abb72bc35dc3013e7beacea90c283fee20e44f
+Author: Ian Chen <yc823@cornell.edu>
+Date:   Tue Apr 23 14:55:18 2024 -0400
+
+    Implemented main.ml
+    
+    - added buttons for poly module
+
+commit bc2343815bc8a45b6b4e934628fc54ed788c5e06
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Tue Apr 23 14:22:33 2024 -0400
+
+    Add more functions to the probstats module
+    
+    - Added linear regression, cdf, z score, correlation, iqr, skewness, and coefficient of variation
+
+commit 21166d2b4282fba0c369203e8bbfe2fb14ee4d7e
+Author: Serena <syz8@cornell.edu>
+Date:   Tue Apr 23 12:58:10 2024 -0400
+
+    added functions to Matrix
+    - added functions scalar_add, scalar_subtract, scalar_divide in matrix.ml
+    - wrote specs in matrix.mli
+    - added test cases
+
+commit 960e4ce19f9fd1c82f44e9087b422065f6fa6106
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Mon Apr 22 16:48:08 2024 -0400
+
+    Add pi,x, (, ),[,], , buttons
+
+commit 4acb7780bc11dfbac20bbb91e125bdd36f9be4a3
+Author: Anita Hong <yh846@cornell.edu>
+Date:   Mon Apr 22 15:43:30 2024 -0400
+
+    Add buttons for basic operations and probstats module
+
+commit 0b2e192073f22d9b3e270c1abaef7196d8a8464f
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon Apr 22 15:21:09 2024 -0400
+
+    Trig
+    
+    - Added test cases
+
+commit 81fb8253342179b35fd27e7e4aa211112c3609ed
+Merge: a407808 329a6db
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon Apr 22 14:14:47 2024 -0400
+
+    Merge branch 'main' of github.coecis.cornell.edu:eyl48/final-project
+    Merging trig branch with main branch
+
+commit a4078087ccdfef4e6cc6eb8f0e9e2af524a0e112
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Mon Apr 22 14:12:09 2024 -0400
+
+    Trig
+    
+    - Added csc, sec, cot, arcsin, arccos, and arctan
+    - Wrote specs for all these functions
+
+commit 329a6db79bd9b2807d6bd9a46b4a5f43473f44d6
+Author: Serena <syz8@cornell.edu>
+Date:   Mon Apr 22 13:53:48 2024 -0400
+
+    deleted unused code
+
+commit 2339722f3dc1e83b3a3209d41f0993dfc77a9551
+Author: Serena <syz8@cornell.edu>
+Date:   Mon Apr 22 13:43:16 2024 -0400
+
+    added functions to Matrix
+    - implemented the added functions in matrix.ml
+    - wrote specs in matrix.mli
+    - added OUnit tests for the added functions
+
+commit 3b1116cd016902512f92f8da24f5a8e2e9fad988
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Wed Apr 17 23:14:26 2024 -0400
+
+    Test
+    
+    - Added test cases for trig: sin, cos, and tan
+
+commit 86ff4c6cba495e443edce68990258c56d6e0aa64
+Author: Camille Yap <cy474@cornell.edu>
+Date:   Wed Apr 17 16:44:51 2024 -0400
+
+    Main
+    
+    - Made the number buttons
+    - Also made the (-), and (.) buttons
+
+commit 97e43dbfdb0498598a496146aba023ead2e3660b
+Author: Emily <eyl48@cornell.edu>
+Date:   Mon Apr 15 22:00:46 2024 -0400
+
+    Add more buttons to gui
+    
+    - Added clear, basicops, and enter buttons
+    - Created tests for basicops
+
+commit ea2f978542ecd404232446e098b4cc5fbfe3983b
+Author: Serena <syz8@cornell.edu>
+Date:   Mon Apr 15 14:05:59 2024 -0400
+
+    fixed main.ml
+    - made individual variables for each button
+
+commit 2c7ffaa587f7af10e43ab62aa37a1fd4a47cb6a9
+Author: Serena <syz8@cornell.edu>
+Date:   Mon Apr 15 11:40:00 2024 -0400
+
+    added details to buttons
+    - buttons left_arrow, right_arrow, up_arrow, down_arrow
+    - added color, border, background, etc.
+
+commit b87319a5d15cad867f71fafc9ed07a9d5419ec38
+Author: Serena <syz8@cornell.edu>
+Date:   Mon Apr 15 10:55:59 2024 -0400
+
+    added tests for Matrix
+    - tests for Matrix functions to_string, add, subtract, transpose, multiply
+
+commit 3840f7d4bab51f48542f7b681e258fff95ae29ff
+Author: Serena <syz8@cornell.edu>
+Date:   Sun Apr 14 15:45:27 2024 -0400
+
+    added arrows
+    - created left, right, up, down arrows
+    - positioned them to the top right of the box
+
+commit c0c85f2086baf87aab6038882ebd407323c0f857
+Author: Serena <syz8@cornell.edu>
+Date:   Fri Apr 12 19:56:14 2024 -0400
+
+    added calculator screen
+    - created a screen
+    - made background color grey
+
+commit 3a68ae594a41f6dd499b11cfb0afaf77e1ea96eb
+Author: Emily <eyl48@cornell.edu>
+Date:   Fri Apr 12 16:33:23 2024 -0400
+
+    Create border for calculator using Bogue
+
+commit 8c58318bff9db7fa39c87615b296c5ab9c5b164a
+Author: Serena <syz8@cornell.edu>
+Date:   Wed Mar 27 11:15:03 2024 -0400
+
+    add gitlog.txt
+
 commit 3e86f7397a3b0d4f901318b0b99e8813d0f717c8
 Author: Ian Chen <yc823@cornell.edu>
 Date:   Wed Mar 27 01:25:44 2024 -0400
